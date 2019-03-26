@@ -1,42 +1,24 @@
 'use strict';
-import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
 import {
   createStackNavigator,
   createAppContainer
 } from 'react-navigation';
 
-//------- All the pages -------//
+//---- import the other pages ------//
+import PlantGroupPage from './PlantGroupPage';
+import GardensPage from './GardensPage';
 
-//-Gardens Page
-class GardensPage extends Component<Props> {
-  static navigationOptions = {
-    title: 'My Gardens',
-  };
-  render() {
-    return <Text style={styles.description}>Your gardens will appear here!</Text>;
-  }
-}
 
 //-------- Navigation --------//
 //Adjust the order of the pages here
 
 const RootStack = createStackNavigator({
+  //- set GardensPage as inital page in nav stack
   Home: { screen: GardensPage },
 });
 
-//Javascript 3 requires an appContainer to be made
+//Javascript 3 requires an appContainer to be made instead of exporting the stackNav directly
 const App = createAppContainer(RootStack);
 export default App;
 
-
-//--------- Styles ------------//
-//here is object styles. written similar to CSS
-const styles = StyleSheet.create({
-  description: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565',
-    marginTop: 65,
-  },
-});
