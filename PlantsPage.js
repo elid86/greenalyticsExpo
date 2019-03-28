@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 type Props = {};
+var pageGroupName = "";
 
 //------- Hard coded data (used before connecting to api) -----------//
 const PlantsList = {
@@ -60,7 +61,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: 'My Plants',
+        title: pageGroupName,
     };
 
 //- initial state of the page
@@ -97,7 +98,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantsPage', {plant: PlantGroupsList[index]});
+    navigate('PlantDetailsPage', {plant: params.plant.group_name[index]});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -116,12 +117,16 @@ onPressItem={this._onPressItem}
 //- what will show on the page
 render() {
     const { params } = this.props.navigation.state;
+    pageGroupName = params.plant.group_name;
     return (
+        <View>
+        <Text style={styles.title}>Group name: {params.plant.group_name}</Text>
         <FlatList
-    data={PlantsList}
+    data={PlantsList[params.plant.group_name]}
     keyExtractor={this._keyExtractor}
     renderItem={this._renderItem}
     />
+    </View>
 );
 }
 }
