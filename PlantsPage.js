@@ -1,16 +1,36 @@
 'use strict';
 
-//------- MY PLANTS PAGE FOR EACH PLANT GROUP --------
-
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     StyleSheet,
-    Image,
     View,
     TouchableHighlight,
     FlatList,
     Text,
 } from 'react-native';
+
+type Props = {};
+
+//------- Hard coded data (used before connecting to api) -----------//
+const PlantsList = {
+        "Greenhouse": [
+            {plant_name: "Hybiscus"},
+            {plant_name: "Poppies"},
+            {plant_name: "Crocus"},
+            {plant_name: "Tansy"},
+        ],
+        "Veggies": [
+            {plant_name: "Carrott"},
+            {plant_name: "Bell Pepper"},
+            {plant_name: "Tomatoe"},
+            {plant_name: "Romain Lettuce"}
+        ],
+        "Flower Bed": [
+            {plant_name: "Hydrangea"},
+            {plant_name: "Rose"},
+            {plant_name: "Peonie"}
+        ]
+    }
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -20,35 +40,65 @@ class ListItem extends React.PureComponent {
 
 render() {
     const item = this.props.item;
-    const price = item.price_formatted.split(' ')[0];
     return (
         <TouchableHighlight
     onPress={this._onPress}
     underlayColor='#dddddd'>
         <View>
         <View style={styles.rowContainer}>
-        <Image style={styles.thumb} source={{ uri: item.img_url }} />
-    <View style={styles.textContainer}>
-        <Text style={styles.price}>{price}</Text>
-        <Text style={styles.title}
-    numberOfLines={1}>{item.title}</Text>
-        </View>
-        </View>
-        <View style={styles.separator}/>
+        <Text style={styles.title}>{item.plant_name}</Text>
+    </View>
+    <View style={styles.separator}/>
     </View>
     </TouchableHighlight>
 );
 }
 }
 
+//------ Plants Group Page --------//
+export default class PlantGroupPage extends Component<Props> {
 
-
-//------ plantsPage class -------------//
-type Props = {};
-export default class PlantsPage extends Component<Props> {
+    //- details of the navigation bar on this page
     static navigationOptions = {
         title: 'My Plants',
     };
+
+//- initial state of the page
+constructor(props) {
+    super(props);
+    this.state = {
+        //- setting page settings
+        isLoading: false,
+        message: '',
+    };
+}
+
+//- even handlers for page
+/*
+_executeQuery = (query) => {
+    console.log(query);
+    this.setState({ isLoading: true });
+    fetch(query)
+        .then(response => response.json())
+.then(json => this._handleResponse(json.response))
+.catch(error =>
+    this.setState({
+        isLoading: false,
+        message: 'Something bad happened ' + error
+    }));
+
+};
+
+_onSearchPressed = () => {
+    const query = urlForQueryAndPage('plant_group', this.state.searchString);
+    this._executeQuery(query);
+};
+*/
+
+_onPressItem = (index) => {
+    const { navigate, state } = this.props.navigation;
+    navigate('PlantsPage', {plant: PlantGroupsList[index]});
+}
 
 _keyExtractor = (item, index) => index.toString();
 
@@ -60,16 +110,15 @@ onPressItem={this._onPressItem}
 />
 );
 
-_onPressItem = (index) => {
-    console.log("Pressed row: "+index);
-};
 
 
+
+//- what will show on the page
 render() {
     const { params } = this.props.navigation.state;
     return (
         <FlatList
-    data={params.listings}
+    data={PlantsList}
     keyExtractor={this._keyExtractor}
     renderItem={this._renderItem}
     />
@@ -77,9 +126,50 @@ render() {
 }
 }
 
+//--------- Query function ----------------//
+/*function urlForQueryAndPage(key, value) {
+    const data = {
+        user_id: '1234',
+        pretty: '1',
+        encoding: 'json',
+        listing_type: 'buy',
+        action: 'search_listings',
+    };
+    data[key] = value;
 
-//--------- Styles ------------//
+    const querystring = Object.keys(data)
+        .map(key => key + '=' + encodeURIComponent(data[key]))
+.join('&');
+
+    return 'https://api.nestoria.co.uk/api?' + querystring;
+}*/
+
+
+
+//--------- Styles for this page -----------//
+
 const styles = StyleSheet.create({
+    container: {
+        padding: 30,
+        marginTop: 65,
+        alignItems: 'center'
+    },
+    flowRight: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+    },
+    searchInput: {
+        height: 36,
+        padding: 4,
+        marginRight: 5,
+        flexGrow: 1,
+        fontSize: 18,
+        borderWidth: 1,
+        borderColor: '#48BBEC',
+        borderRadius: 8,
+        color: '#48BBEC',
+    },
     thumb: {
         width: 80,
         height: 80,
@@ -92,12 +182,12 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#dddddd'
     },
-    price: {
+    title: {
         fontSize: 25,
         fontWeight: 'bold',
         color: '#48BBEC'
     },
-    title: {
+    description: {
         fontSize: 20,
         color: '#656565'
     },

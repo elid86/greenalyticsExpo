@@ -15,8 +15,8 @@ import PlantsPage from './PlantsPage';
 //Adjust the order of the pages here
 
 const RootStack = createStackNavigator({
-  //- set GardensPage as inital page in nav stack
-  Home: { screen: GardensPage },
+  //- set inital page in nav stack
+  Home: { screen: PlantGroupPage },
   //- Set up routes for each page
   PlantsPage: { screen: PlantsPage },
 });
