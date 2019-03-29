@@ -13,6 +13,42 @@ import {
 
 type Props = {};
 
+const PlantList = {
+            "Hybiscus": {
+            description: "Its a plant...",
+        },
+            "Poppies": {
+             description: "Its a plant...",
+         },
+            "Crocus": {
+            description: "Its a plant...",
+        },
+            "Tansy": {
+            description: "Its a plant...",
+        },
+            "Carrott": {
+            description: "Its a plant...",
+        },
+            "Bell Pepper": {
+            description: "Its a plant...",
+        },
+            "Tomatoe": {
+            description: "Its a plant...",
+        },
+            "Romain Lettuce": {
+            description: "Its a plant...",
+        },
+            "Hydrangea": {
+            description: "Its a plant...",
+        },
+            "Rose": {
+            description: "Its a plant...",
+        },
+            "Peonie": {
+            description: "Its a plant...",
+        }
+    };
+
 //------ Gardens Page --------//
 export default class PlantDetailsPage extends Component<Props> {
 
@@ -37,13 +73,18 @@ constructor(props) {
 
 //- what will show on the page
 render() {
+    const { params } = this.props.navigation.state;
+    const item = PlantList[params.plant.plant_name];
     const spinner = this.state.isLoading ?
 <ActivityIndicator size='large'/> : null;
     return (
         <View style={styles.container}>
     <Text style={styles.title}>
-        Coming soon...
+        {params.plant.plant_name}
     </Text>
+        <Text style={styles.title}>
+        {item.description}
+        </Text>
     {spinner}
 <Text style={styles.description}>{this.state.message}</Text>
         </View>

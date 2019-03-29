@@ -7,6 +7,7 @@ import {
     TouchableHighlight,
     FlatList,
     Text,
+    TouchableOpacity,
 } from 'react-native';
 
 type Props = {};
@@ -61,7 +62,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: pageGroupName,
+        title: "My Plants",
     };
 
 //- initial state of the page
@@ -98,7 +99,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantDetailsPage', {plant: params.plant.group_name[index]});
+    navigate('PlantDetailsPage', {plant: PlantsList[pageGroupName][index]});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -119,13 +120,15 @@ render() {
     const { params } = this.props.navigation.state;
     pageGroupName = params.plant.group_name;
     return (
-        <View>
-        <Text style={styles.title}>Group name: {params.plant.group_name}</Text>
+        <View style={{flex:1}}>
         <FlatList
-    data={PlantsList[params.plant.group_name]}
-    keyExtractor={this._keyExtractor}
-    renderItem={this._renderItem}
-    />
+            data={PlantsList[params.plant.group_name]}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem}
+        />
+        <TouchableOpacity onPress={() => alert('Add clicked!!!')} style={styles.fab}>
+            <Text style={styles.fabIcon}>+</Text>
+        </TouchableOpacity>
     </View>
 );
 }
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#48BBEC'
+        color: '#274f19'
     },
     description: {
         fontSize: 20,
@@ -198,6 +201,23 @@ const styles = StyleSheet.create({
     },
     rowContainer: {
         flexDirection: 'row',
-        padding: 10
+        padding: 10,
+        borderRadius: 10,
     },
+    fab: {
+        position: 'absolute',
+        width: 56,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#274f19',
+        borderRadius: 30,
+        elevation: 8
+    },
+    fabIcon: {
+        fontSize: 40,
+        color: 'white'
+    }
 });

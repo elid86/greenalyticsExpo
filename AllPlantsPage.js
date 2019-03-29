@@ -7,56 +7,40 @@ import {
     TouchableHighlight,
     FlatList,
     Text,
+    TouchableOpacity,
 } from 'react-native';
 
 type Props = {};
+var pageGroupName = "";
 
 //------- Hard coded data (used before connecting to api) -----------//
-const PlantGroupsList = [
-    {
-        group_name: "Greenhouse",
-        temp: 78,
-        humidity: 20
+const PlantsList = {
+    "hydrangea":{
+
     },
-    {
-        group_name: "Veggies",
-        temp: 72,
-        humidity: 10
-    },
-    {
-        group_name: "Flower Bed",
-        temp: 73,
-        humidity: 10
-    }
-]
+}
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
     _onPress = () => {
-        this.props.onPressItem(this.props.index);
-    }
+    this.props.onPressItem(this.props.index);
+}
 
-    render() {
-        const item = this.props.item;
-        return (
-            <TouchableHighlight
-        onPress={this._onPress}
-        underlayColor='#dddddd'>
-            <View>
-                <View style={styles.rowContainer}>
-                    <View style={styles.flowRight}>
-                        <Text style={styles.title}>{item.group_name}</Text>
-                    </View>
-                    <View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>
-                </View>
-            <View style={styles.separator}/>
+render() {
+    const item = this.props.item;
+    return (
+        <TouchableHighlight
+    onPress={this._onPress}
+    underlayColor='#dddddd'>
+        <View>
+        <View style={styles.rowContainer}>
+        <Text style={styles.title}>{item.plant_name}</Text>
         </View>
-        </TouchableHighlight>
-        );
-    }
+        <View style={styles.separator}/>
+    </View>
+    </TouchableHighlight>
+);
+}
 }
 
 //------ Plants Group Page --------//
@@ -64,7 +48,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: 'My Plant Groups',
+        title: "My Plants",
     };
 
 //- initial state of the page
@@ -101,7 +85,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantsListPage', {plant: PlantGroupsList[index]});
+    navigate('PlantDetailsPage', {plant: PlantsList[pageGroupName][index]});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -120,12 +104,18 @@ onPressItem={this._onPressItem}
 //- what will show on the page
 render() {
     const { params } = this.props.navigation.state;
+    pageGroupName = params.plant.group_name;
     return (
-        <FlatList
-            data={PlantGroupsList}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-        />
+        <View style={{flex:1}}>
+<FlatList
+    data={PlantsList[params.plant.group_name]}
+    keyExtractor={this._keyExtractor}
+    renderItem={this._renderItem}
+    />
+    <TouchableOpacity onPress={() => alert('Add clicked!!!')} style={styles.fab}>
+        <Text style={styles.fabIcon}>+</Text>
+        </TouchableOpacity>
+        </View>
 );
 }
 }
@@ -159,7 +149,6 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     flowRight: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -190,18 +179,31 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#48BBEC',
-        marginRight: 5,
-        flexGrow: 1,
-        height: 36
+        color: '#274f19'
     },
     description: {
-        alignSelf: 'flex-end',
         fontSize: 20,
-        color: '#656565',
+        color: '#656565'
     },
     rowContainer: {
         flexDirection: 'row',
-        padding: 10
+        padding: 10,
+        borderRadius: 10,
+    },
+    fab: {
+        position: 'absolute',
+        width: 56,
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#274f19',
+        borderRadius: 30,
+        elevation: 8
+    },
+    fabIcon: {
+        fontSize: 40,
+        color: 'white'
     }
 });

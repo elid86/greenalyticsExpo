@@ -8,7 +8,7 @@ import {
 //---- import the other pages ------//
 import PlantGroupPage from './PlantGroupPage';
 import GardensPage from './GardensPage';
-import PlantsPage from './PlantsPage';
+import PlantsListPage from './PlantsListPage';
 import PlantDetailsPage from './PlantDetailsPage';
 
 
@@ -19,7 +19,7 @@ const RootStack = createStackNavigator({
   //- set inital page in nav stack
   Home: { screen: PlantGroupPage },
   //- Set up routes for each page
-  PlantsPage: { screen: PlantsPage },
+  PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage}
 });
 
