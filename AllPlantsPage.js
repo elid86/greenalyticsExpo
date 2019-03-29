@@ -11,14 +11,21 @@ import {
 } from 'react-native';
 
 type Props = {};
-var pageGroupName = "";
 
 //------- Hard coded data (used before connecting to api) -----------//
-const PlantsList = {
-    "hydrangea":{
-
-    },
-}
+const PlantsList = [
+    {plant_name: "Hybiscus", id: 1},
+    {plant_name: "Poppies", id: 2},
+    {plant_name: "Crocus", id: 3},
+    {plant_name: "Tansy", id: 4},
+    {plant_name: "Carrot", id: 5},
+    {plant_name: "Bell Pepper", id: 6},
+    {plant_name: "Tomato", id: 7},
+    {plant_name: "Romain Lettuce", id: 8},
+    {plant_name: "Hydrangea", id: 9},
+    {plant_name: "Rose", id: 10},
+    {plant_name: "Peonie", id: 11},
+]
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -48,7 +55,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: "My Plants",
+        title: "All Plants",
     };
 
 //- initial state of the page
@@ -85,7 +92,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantDetailsPage', {plant: PlantsList[pageGroupName][index]});
+    navigate('PlantDetailsPage', {plant: PlantsList[index]});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -103,17 +110,15 @@ onPressItem={this._onPressItem}
 
 //- what will show on the page
 render() {
-    const { params } = this.props.navigation.state;
-    pageGroupName = params.plant.group_name;
     return (
         <View style={{flex:1}}>
 <FlatList
-    data={PlantsList[params.plant.group_name]}
+    data={PlantsList}
     keyExtractor={this._keyExtractor}
     renderItem={this._renderItem}
     />
     <TouchableOpacity onPress={() => alert('Add clicked!!!')} style={styles.fab}>
-        <Text style={styles.fabIcon}>+</Text>
+        <Text style={styles.fabIcon}>Submit</Text>
         </TouchableOpacity>
         </View>
 );
@@ -173,10 +178,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
+        height: 8,
+        backgroundColor: 'white'
     },
     title: {
+        left: 10,
         fontSize: 25,
         fontWeight: 'bold',
         color: '#274f19'
@@ -186,16 +192,21 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
-        borderRadius: 10,
+        flex: 1,
+        justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 8,
+        backgroundColor: '#c1e190',
+        height: 60,
     },
     fab: {
         position: 'absolute',
-        width: 56,
+        flexDirection: 'row',
         height: 56,
         alignItems: 'center',
         justifyContent: 'center',
+        left: 20,
         right: 20,
         bottom: 20,
         backgroundColor: '#274f19',
@@ -203,7 +214,7 @@ const styles = StyleSheet.create({
         elevation: 8
     },
     fabIcon: {
-        fontSize: 40,
+        fontSize: 30,
         color: 'white'
     }
 });

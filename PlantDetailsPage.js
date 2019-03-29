@@ -26,13 +26,13 @@ const PlantList = {
             "Tansy": {
             description: "Its a plant...",
         },
-            "Carrott": {
+            "Carrot": {
             description: "Its a plant...",
         },
             "Bell Pepper": {
             description: "Its a plant...",
         },
-            "Tomatoe": {
+            "Tomato": {
             description: "Its a plant...",
         },
             "Romain Lettuce": {

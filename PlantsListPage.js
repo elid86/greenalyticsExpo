@@ -22,9 +22,9 @@ const PlantsList = {
             {plant_name: "Tansy"},
         ],
         "Veggies": [
-            {plant_name: "Carrott"},
+            {plant_name: "Carrot"},
             {plant_name: "Bell Pepper"},
-            {plant_name: "Tomatoe"},
+            {plant_name: "Tomato"},
             {plant_name: "Romain Lettuce"}
         ],
         "Flower Bed": [
@@ -112,7 +112,10 @@ onPressItem={this._onPressItem}
 />
 );
 
-
+_onPressAdd = (index) => {
+    const { navigate, state } = this.props.navigation;
+    navigate('AllPlantsPage');
+}
 
 
 //- what will show on the page
@@ -126,8 +129,8 @@ render() {
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
         />
-        <TouchableOpacity onPress={() => alert('Add clicked!!!')} style={styles.fab}>
-            <Text style={styles.fabIcon}>+</Text>
+        <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+            <Text style={styles.fabIcon}>+ Add A Plant</Text>
         </TouchableOpacity>
     </View>
 );
@@ -187,10 +190,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
+        height: 0,
+        backgroundColor: 'white'
     },
     title: {
+        left: 10,
         fontSize: 25,
         fontWeight: 'bold',
         color: '#274f19'
@@ -200,16 +204,20 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
-        borderRadius: 10,
+        flex: 1,
+        justifyContent: 'center',
+        margin: 10,
+        borderRadius: 8,
+        backgroundColor: '#c1e190',
+        height: 60,
     },
     fab: {
         position: 'absolute',
-        width: 56,
+        flexDirection: 'row',
         height: 56,
         alignItems: 'center',
         justifyContent: 'center',
+        left: 20,
         right: 20,
         bottom: 20,
         backgroundColor: '#274f19',
@@ -217,7 +225,7 @@ const styles = StyleSheet.create({
         elevation: 8
     },
     fabIcon: {
-        fontSize: 40,
+        fontSize: 30,
         color: 'white'
     }
 });

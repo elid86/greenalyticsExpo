@@ -184,24 +184,44 @@ const styles = StyleSheet.create({
         flex: 1
     },
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
+        height: 8,
+        backgroundColor: 'white'
     },
     title: {
+        left: 10,
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#48BBEC',
-        marginRight: 5,
-        flexGrow: 1,
-        height: 36
+        color: '#274f19'
     },
     description: {
-        alignSelf: 'flex-end',
         fontSize: 20,
-        color: '#656565',
+        color: '#656565'
     },
     rowContainer: {
         flexDirection: 'row',
-        padding: 10
+        padding: 10,
+        justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 8,
+        backgroundColor: '#c1e190',
+        height: 60,
+    },
+    fab: {
+        position: 'absolute',
+        flexDirection: 'row',
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 20,
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#274f19',
+        borderRadius: 30,
+        elevation: 8
+    },
+    fabIcon: {
+        fontSize: 30,
+        color: 'white'
     }
 });
