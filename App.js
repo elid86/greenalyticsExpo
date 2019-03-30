@@ -7,7 +7,9 @@ import {
 
 //---- import the other pages ------//
 import PlantGroupPage from './PlantGroupPage';
+import AddBed from './AddBed';
 import GardensPage from './GardensPage';
+import AddGardenPage from './AddGardenPage';
 import PlantsListPage from './PlantsListPage';
 import PlantDetailsPage from './PlantDetailsPage';
 import AllPlantsPage from './AllPlantsPage';
@@ -20,10 +22,12 @@ const RootStack = createStackNavigator({
   //- set inital page in nav stack
   Home: { screen: GardensPage },
   //- Set up routes for each page
+  AddGardenPage: {screen: AddGardenPage},
   PlantGroupPage: {screen: PlantGroupPage},
+  AddBed: {screen:AddBed},
   PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage},
-  AllPlantsPage: { screen: AllPlantsPage}
+  AllPlantsPage: { screen: AllPlantsPage},
 });
 
 //Javascript 3 requires an appContainer to be made instead of exporting the stackNav directly

@@ -7,7 +7,9 @@ import {
     TouchableHighlight,
     FlatList,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput,
+    Button
 } from 'react-native';
 
 type Props = {};
@@ -76,7 +78,13 @@ constructor(props) {
         //- setting page settings
         isLoading: false,
         message: '',
+        TextInputValue: ''
     };
+}
+
+buttonClickListener=()=> {
+    const{TextInputValue}=this.state;
+    Alert.alert(TextInputValue);
 }
 
 //- even handlers for page
@@ -116,6 +124,11 @@ onPressItem={this._onPressItem}
 />
 );
 
+_onPressAdd = (index) => {
+    const { navigate, state } = this.props.navigation;
+    navigate('AddGardenPage');
+}
+
 
 
 
@@ -132,10 +145,10 @@ render() {
          <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
             <Text style={styles.fabIcon}>+ Add A Garden</Text>
         </TouchableOpacity>
-    </View>
-);
-}
-}
+        </View>
+        );
+    } 
+} 
 
 //--------- Query function ----------------//
 /*function urlForQueryAndPage(key, value) {
@@ -230,5 +243,11 @@ const styles = StyleSheet.create({
     fabIcon: {
         fontSize: 30,
         color: 'white'
+    },
+    headerText: {
+        fontSize:20,
+        textAlign:"center",
+        margin:10,
+        fontWeight: "bold"
     }
 });

@@ -66,7 +66,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: 'My Plant Groups',
+        title: 'My Garden Beds',
     };
 
 //- initial state of the page
@@ -115,6 +115,11 @@ index={index}
 onPressItem={this._onPressItem}
 />
 );
+
+_onPressAdd = (index) => {
+    const { navigate, state } = this.props.navigation;
+    navigate('AddBed');
+}
 
 
 
