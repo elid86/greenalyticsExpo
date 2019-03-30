@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e96efed-e69b-4133-9a37-56fcdcc141de" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AllPlantsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/AllPlantsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantsListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantsListPage.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,12 +14,12 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+                <state relative-caret-position="420">
+                  <caret line="28" column="6" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
                   <folding>
                     <element signature="e#15#95#0" expanded="true" />
                     <element signature="e#136#182#0" expanded="true" />
@@ -31,8 +31,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/PlantGroupPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="50" column="78" selection-start-line="50" selection-start-column="68" selection-end-line="50" selection-end-column="78" />
+                <state relative-caret-position="765">
+                  <caret line="51" column="78" selection-start-line="51" selection-start-column="78" selection-end-line="51" selection-end-column="78" />
                   <folding>
                     <element signature="e#15#56#0" expanded="true" />
                   </folding>
@@ -43,8 +43,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/AllPlantsPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="409">
-                  <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+                <state relative-caret-position="264">
+                  <caret line="71" column="110" selection-start-line="71" selection-start-column="104" selection-end-line="71" selection-end-column="110" />
                   <folding>
                     <element signature="e#15#56#0" expanded="true" />
                   </folding>
@@ -55,8 +55,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="467">
-                  <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
+                <state relative-caret-position="1095">
+                  <caret line="73" column="20" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
                   <folding>
                     <element signature="e#15#56#0" expanded="true" />
                   </folding>
@@ -67,8 +67,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/PlantDetailsPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+                <state relative-caret-position="420">
+                  <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
                   <folding>
                     <element signature="e#15#56#0" expanded="true" />
                   </folding>
@@ -79,7 +79,7 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
               <provider selected="true" editor-type-id="text-editor">
@@ -196,12 +196,13 @@
       <workItem from="1553532385434" duration="3000" />
       <workItem from="1553532420202" duration="72000" />
       <workItem from="1553533945369" duration="34000" />
-      <workItem from="1553609937664" duration="50502000" />
+      <workItem from="1553609937664" duration="50577000" />
+      <workItem from="1553955215789" duration="1085000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50611000" />
+    <option name="totallyTimeSpent" value="51771000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="0" />
@@ -243,13 +244,7 @@
     <entry file="file://$PROJECT_DIR$/yarn.lock">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/plantsPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="18" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/plantsPage.js" />
     <entry file="file://$PROJECT_DIR$/../Downloads/PropertyFinder-challenge-v2/SearchResults.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
@@ -260,40 +255,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/PlantDetailsPage.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlantDetailsPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-          <folding>
-            <element signature="e#15#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-          <folding>
-            <element signature="e#15#95#0" expanded="true" />
-            <element signature="e#136#182#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
-          <folding>
-            <element signature="e#15#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/PlantDetailsPage.js" />
     <entry file="file://$PROJECT_DIR$/GardensPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
@@ -304,10 +266,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="6" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
+          <folding>
+            <element signature="e#15#95#0" expanded="true" />
+            <element signature="e#136#182#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PlantGroupPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="50" column="78" selection-start-line="50" selection-start-column="68" selection-end-line="50" selection-end-column="78" />
+        <state relative-caret-position="765">
+          <caret line="51" column="78" selection-start-line="51" selection-start-column="78" selection-end-line="51" selection-end-column="78" />
+          <folding>
+            <element signature="e#15#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlantDetailsPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+          <folding>
+            <element signature="e#15#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="73" column="20" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
           <folding>
             <element signature="e#15#56#0" expanded="true" />
           </folding>
@@ -316,8 +309,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AllPlantsPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        <state relative-caret-position="264">
+          <caret line="71" column="110" selection-start-line="71" selection-start-column="104" selection-end-line="71" selection-end-column="110" />
           <folding>
             <element signature="e#15#56#0" expanded="true" />
           </folding>

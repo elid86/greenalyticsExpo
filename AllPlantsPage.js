@@ -69,7 +69,7 @@ render() {
                 </View>
             <View style={{flow:1,marginRight: 5, justifyContent: 'center'}}>
                 <TouchableHighlight onPress={this._onSelectionMade} style={{width: 50,}}>
-                    <Text nativeID={item.plant_name} style={{fontSize: 35, fontWeight: 'bold', color: '#274f19', textAlign: 'center'}} >{this.state.textValue}</Text>
+                    <Text nativeID={item.plant_name} style={{fontSize: 35, fontWeight: 'bold', color: '#7da46e', textAlign: 'center'}} >{this.state.textValue}</Text>
                 </TouchableHighlight>
             </View>
         <View style={styles.separator}/>
