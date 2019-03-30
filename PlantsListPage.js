@@ -15,13 +15,13 @@ var pageGroupName = "";
 
 //------- Hard coded data (used before connecting to api) -----------//
 const PlantsList = {
-        "Greenhouse": [
+        "Greenhouse Bed": [
             {plant_name: "Hybiscus"},
             {plant_name: "Poppies"},
             {plant_name: "Crocus"},
             {plant_name: "Tansy"},
         ],
-        "Veggies": [
+        "Veggie Bed": [
             {plant_name: "Carrot"},
             {plant_name: "Bell Pepper"},
             {plant_name: "Tomato"},

@@ -7,19 +7,20 @@ import {
     TouchableHighlight,
     FlatList,
     Text,
+    TouchableOpacity
 } from 'react-native';
 
 type Props = {};
 
 //------- Hard coded data (used before connecting to api) -----------//
-const PlantGroupsList = [
+const PlantGroups = [
     {
-        group_name: "Greenhouse",
+        group_name: "Greenhouse Bed",
         temp: 78,
         humidity: 20
     },
     {
-        group_name: "Veggies",
+        group_name: "Veggie Bed",
         temp: 72,
         humidity: 10
     },
@@ -51,6 +52,7 @@ class ListItem extends React.PureComponent {
                         <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
                         <Text style={styles.description}>{item.humidity}%</Text>
                     </View>
+
                 </View>
             <View style={styles.separator}/>
         </View>
@@ -101,7 +103,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantsListPage', {plant: PlantGroupsList[index]});
+    navigate('PlantsListPage', {plant: PlantGroups[index]});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -121,11 +123,16 @@ onPressItem={this._onPressItem}
 render() {
     const { params } = this.props.navigation.state;
     return (
+        <View style={{flex:1}}>
         <FlatList
-            data={PlantGroupsList}
+            data={PlantGroups}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
         />
+         <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+            <Text style={styles.fabIcon}>+ Add A Bed</Text>
+        </TouchableOpacity>
+    </View>
 );
 }
 }

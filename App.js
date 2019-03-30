@@ -18,8 +18,9 @@ import AllPlantsPage from './AllPlantsPage';
 
 const RootStack = createStackNavigator({
   //- set inital page in nav stack
-  Home: { screen: PlantGroupPage },
+  Home: { screen: GardensPage },
   //- Set up routes for each page
+  PlantGroupPage: {screen: PlantGroupPage},
   PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage},
   AllPlantsPage: { screen: AllPlantsPage}

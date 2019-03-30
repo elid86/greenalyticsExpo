@@ -3,49 +3,91 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
-    TextInput,
     View,
-    Button,
-    ActivityIndicator,
-    Image,
+    TouchableHighlight,
+    FlatList,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 type Props = {};
 
-//------ Gardens Page --------//
-export default class GardensPage extends Component<Props> {
+//------- Hard coded data (used before connecting to api) -----------//
+const GardenList = [
+    {
+        group_name: "Greenhouse",
+        temp: 78,
+        humidity: 20
+    },
+    {
+        group_name: "Veggie",
+        temp: 72,
+        humidity: 10
+    },
+    {
+        group_name: "Flower",
+        temp: 73,
+        humidity: 10
+    }
+]
+
+//------- creates rows for the table ----------//
+class ListItem extends React.PureComponent {
+    _onPress = () => {
+        this.props.onPressItem(this.props.index);
+    }
+
+    render() {
+        const item = this.props.item;
+        return (
+            <TouchableHighlight
+        onPress={this._onPress}
+        underlayColor='#dddddd'>
+            <View>
+                <View style={styles.rowContainer}>
+                    <View style={styles.flowRight}>
+                        <Text style={styles.title}>{item.group_name}</Text>
+                    </View>
+                    <View style={{flow:1}}>
+                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
+                        <Text style={styles.description}>{item.humidity}%</Text>
+                    </View>
+
+                </View>
+            <View style={styles.separator}/>
+        </View>
+        </TouchableHighlight>
+        );
+    }
+}
+
+//------ Plants Group Page --------//
+export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
         title: 'My Gardens',
     };
 
-    //- initial state of the page
+//- initial state of the page
 constructor(props) {
     super(props);
     this.state = {
         //- setting page settings
-        searchString: 'london',
         isLoading: false,
         message: '',
     };
 }
 
-//- even handlers for page (must define when making object)
-_onSearchTextChanged = (event) => {
-    console.log('_onSearchTextChanged');
-    this.setState({ searchString: event.nativeEvent.text });
-    console.log('Current: '+this.state.searchString+', Next: '+event.nativeEvent.text);
-};
-
+//- even handlers for page
+/*
 _executeQuery = (query) => {
     console.log(query);
     this.setState({ isLoading: true });
     fetch(query)
         .then(response => response.json())
-    .then(json => this._handleResponse(json.response))
-    .catch(error =>
+.then(json => this._handleResponse(json.response))
+.catch(error =>
     this.setState({
         isLoading: false,
         message: 'Something bad happened ' + error
@@ -54,63 +96,55 @@ _executeQuery = (query) => {
 };
 
 _onSearchPressed = () => {
-    const query = urlForQueryAndPage('place_name', this.state.searchString, 1);
+    const query = urlForQueryAndPage('plant_group', this.state.searchString);
     this._executeQuery(query);
 };
+*/
 
-_handleResponse = (response) => {
-    this.setState({ isLoading: false , message: '' });
-    if (response.application_response_code.substr(0, 1) === '1') {
-        this.props.navigation.navigate(
-            'PlantsPage', {listings: response.listings});    } else {
-        this.setState({ message: 'Location not recognized; please try again.'});
-    }
-};
+_onPressItem = (index) => {
+    const { navigate, state } = this.props.navigation;
+    navigate('PlantGroupPage', {plant: GardenList[index]});
+}
+
+_keyExtractor = (item, index) => index.toString();
+
+_renderItem = ({item, index}) => (
+<ListItem
+item={item}
+index={index}
+onPressItem={this._onPressItem}
+/>
+);
+
 
 
 
 //- what will show on the page
 render() {
-    const spinner = this.state.isLoading ?
-<ActivityIndicator size='large'/> : null;
+    const { params } = this.props.navigation.state;
     return (
-        <View style={styles.container}>
-        <Text style={styles.description}>
-        Add your gardens here!
-    </Text>
-    <Text style={styles.description}>
-        Coming soon...
-    </Text>
-    <View style={styles.flowRight}>
-        <TextInput
-    underlineColorAndroid={'transparent'}
-    style={styles.searchInput}
-    value={this.state.searchString}
-    placeholder='This is temporary...'
-    onChange={this._onSearchTextChanged}/>
-        <Button
-    onPress={this._onSearchPressed}
-    color='#48BBEC'
-    title='Go'
+        <View style={{flex:1}}>
+        <FlatList
+            data={GardenList}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem}
         />
-        </View>
-    {spinner}
-    <Text style={styles.description}>{this.state.message}</Text>
-        </View>
-
+         <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+            <Text style={styles.fabIcon}>+ Add A Garden</Text>
+        </TouchableOpacity>
+    </View>
 );
 }
 }
 
 //--------- Query function ----------------//
-function urlForQueryAndPage(key, value, pageNumber) {
+/*function urlForQueryAndPage(key, value) {
     const data = {
-        country: 'uk',
+        user_id: '1234',
         pretty: '1',
         encoding: 'json',
         listing_type: 'buy',
         action: 'search_listings',
-        page: pageNumber,
     };
     data[key] = value;
 
@@ -119,25 +153,20 @@ function urlForQueryAndPage(key, value, pageNumber) {
 .join('&');
 
     return 'https://api.nestoria.co.uk/api?' + querystring;
-}
+}*/
 
 
 
 //--------- Styles for this page -----------//
 
 const styles = StyleSheet.create({
-    description: {
-        marginBottom: 20,
-        fontSize: 18,
-        textAlign: 'center',
-        color: '#656565'
-    },
     container: {
         padding: 30,
         marginTop: 65,
         alignItems: 'center'
     },
     flowRight: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -153,4 +182,53 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         color: '#48BBEC',
     },
+    thumb: {
+        width: 80,
+        height: 80,
+        marginRight: 10
+    },
+    textContainer: {
+        flex: 1
+    },
+    separator: {
+        height: 8,
+        backgroundColor: 'white'
+    },
+    title: {
+        left: 10,
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#274f19'
+    },
+    description: {
+        fontSize: 20,
+        color: '#656565'
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        padding: 10,
+        justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 8,
+        backgroundColor: '#c1e190',
+        height: 60,
+    },
+    fab: {
+        position: 'absolute',
+        flexDirection: 'row',
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 20,
+        right: 20,
+        bottom: 20,
+        backgroundColor: '#274f19',
+        borderRadius: 30,
+        elevation: 8
+    },
+    fabIcon: {
+        fontSize: 30,
+        color: 'white'
+    }
 });
