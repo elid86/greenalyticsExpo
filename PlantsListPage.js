@@ -206,7 +206,9 @@ const styles = StyleSheet.create({
     rowContainer: {
         flex: 1,
         justifyContent: 'center',
-        margin: 10,
+        marginTop: 10,
+        marginRight: 8,
+        marginLeft: 8,
         borderRadius: 8,
         backgroundColor: '#c1e190',
         height: 60,

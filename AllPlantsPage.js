@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 type Props = {};
+var selectedPlants = [];
 
 //------- Hard coded data (used before connecting to api) -----------//
 const PlantsList = [
@@ -29,9 +30,32 @@ const PlantsList = [
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
+    state = {
+        textValue: '+'
+    }
+
     _onPress = () => {
     this.props.onPressItem(this.props.index);
-}
+    }
+    _selectionMade = () => {
+        this.onSelectionMade(this.props.id);
+    };
+
+_onSelectionMade = () => {
+    if(selectedPlants.includes(PlantsList[this.props.index].plant_name)){
+        this.setState({
+            textValue: '+'
+        });
+        selectedPlants.splice( selectedPlants.indexOf(PlantsList[this.props.index].plant_name), 1 );
+    }else{
+    this.setState({
+        textValue: '✔'
+    });
+    selectedPlants.push(PlantsList[this.props.index].plant_name);
+    }
+    console.log(selectedPlants);
+};
+
 
 render() {
     const item = this.props.item;
@@ -39,12 +63,17 @@ render() {
         <TouchableHighlight
     onPress={this._onPress}
     underlayColor='#dddddd'>
-        <View>
         <View style={styles.rowContainer}>
-        <Text style={styles.title}>{item.plant_name}</Text>
-        </View>
+                <View style={styles.flowRight}>
+                    <Text style={styles.title}>{item.plant_name}</Text>
+                </View>
+            <View style={{flow:1,marginRight: 5, justifyContent: 'center'}}>
+                <TouchableHighlight onPress={this._onSelectionMade} style={{width: 50,}}>
+                    <Text nativeID={item.plant_name} style={{fontSize: 35, fontWeight: 'bold', color: '#274f19', textAlign: 'center'}} >{this.state.textValue}</Text>
+                </TouchableHighlight>
+            </View>
         <View style={styles.separator}/>
-    </View>
+        </View>
     </TouchableHighlight>
 );
 }
@@ -62,10 +91,9 @@ export default class PlantGroupPage extends Component<Props> {
 constructor(props) {
     super(props);
     this.state = {
-        //- setting page settings
-        isLoading: false,
-        message: '',
-    };
+        fakeContact: [],
+        SelectedFakeContactList: []
+    }
 }
 
 //- even handlers for page
@@ -90,6 +118,8 @@ _onSearchPressed = () => {
 };
 */
 
+
+
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
     navigate('PlantDetailsPage', {plant: PlantsList[index]});
@@ -100,6 +130,7 @@ _keyExtractor = (item, index) => index.toString();
 _renderItem = ({item, index}) => (
 <ListItem
 item={item}
+id={item.plant_name}
 index={index}
 onPressItem={this._onPressItem}
 />
@@ -154,6 +185,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     flowRight: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -192,10 +224,11 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginTop: 10,
+        marginRight: 8,
+        marginLeft: 8,
         borderRadius: 8,
         backgroundColor: '#c1e190',
         height: 60,
