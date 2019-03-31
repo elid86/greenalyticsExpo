@@ -20,12 +20,13 @@ const PlantsList = [
     {plant_name: "Crocus", id: 3},
     {plant_name: "Tansy", id: 4},
     {plant_name: "Carrot", id: 5},
-    {plant_name: "Bell Pepper", id: 6},
+    {plant_name: "Garlic", id: 6},
     {plant_name: "Tomato", id: 7},
-    {plant_name: "Romain Lettuce", id: 8},
+    {plant_name: "Corn", id: 8},
     {plant_name: "Hydrangea", id: 9},
     {plant_name: "Rose", id: 10},
     {plant_name: "Peonie", id: 11},
+    {plant_name: "Eggplant", id: 12}
 ]
 
 //------- creates rows for the table ----------//

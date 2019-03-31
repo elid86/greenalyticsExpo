@@ -23,9 +23,10 @@ const PlantsList = {
         ],
         "Veggie Bed": [
             {plant_name: "Carrot"},
-            {plant_name: "Bell Pepper"},
+            {plant_name: "Garlic"},
             {plant_name: "Tomato"},
-            {plant_name: "Romain Lettuce"}
+            {plant_name: "Corn"},
+            {plant_name: "Eggplant"}
         ],
         "Flower Bed": [
             {plant_name: "Hydrangea"},
@@ -137,8 +138,8 @@ render() {
 }
 }
 
-//--------- Query function ----------------//
-/*function urlForQueryAndPage(key, value) {
+//--------- url Prep functions ----------------//
+/*function urlPrepPlants(key, value) {
     const data = {
         user_id: '1234',
         pretty: '1',

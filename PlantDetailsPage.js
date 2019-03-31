@@ -12,42 +12,7 @@ import {
 } from 'react-native';
 
 type Props = {};
-
-const PlantList = {
-            "Hybiscus": {
-            description: "Its a plant...",
-        },
-            "Poppies": {
-             description: "Its a plant...",
-         },
-            "Crocus": {
-            description: "Its a plant...",
-        },
-            "Tansy": {
-            description: "Its a plant...",
-        },
-            "Carrot": {
-            description: "Its a plant...",
-        },
-            "Bell Pepper": {
-            description: "Its a plant...",
-        },
-            "Tomato": {
-            description: "Its a plant...",
-        },
-            "Romain Lettuce": {
-            description: "Its a plant...",
-        },
-            "Hydrangea": {
-            description: "Its a plant...",
-        },
-            "Rose": {
-            description: "Its a plant...",
-        },
-            "Peonie": {
-            description: "Its a plant...",
-        }
-    };
+type plantData = {};
 
 //------ Gardens Page --------//
 export default class PlantDetailsPage extends Component<Props> {
@@ -58,38 +23,64 @@ export default class PlantDetailsPage extends Component<Props> {
     };
 
 //- initial state of the page
-constructor(props) {
+constructor(props)
+{
     super(props);
     this.state = {
         //- setting page settings
-        isLoading: false,
+        isLoading: true,
         message: '',
+        dataSoure: null,
     };
 }
 
 //- even handlers for page (must define when making object)
 
+componentDidMount()
+{
+    const {params} = this.props.navigation.state;
+    const item = params.plant.plant_name;
+    var url = 'http://greenalytics.ga:5000/api/1/plant/' + item
+    console.log(url);
+    return fetch(url)
+        .then((response) => response.json())
+.then((responseJson) => {
+    this.setState({
+        isLoading: false,
+        dataSource: responseJson
+    })
+    console.log(responseJson);
+})
+.catch((error) => {
+    console.error(error);
+});
+
+}
 
 
 //- what will show on the page
-render() {
-    const { params } = this.props.navigation.state;
-    const item = PlantList[params.plant.plant_name];
-    const spinner = this.state.isLoading ?
-<ActivityIndicator size='large'/> : null;
-    return (
-        <View style={styles.container}>
-    <Text style={styles.title}>
-        {params.plant.plant_name}
-    </Text>
-        <Text style={styles.title}>
-        {item.description}
-        </Text>
-    {spinner}
-<Text style={styles.description}>{this.state.message}</Text>
-        </View>
-
-);
+render(){
+    if (this.state.isLoading) {
+        return (
+            < View style={styles.description}>
+            < ActivityIndicator/>
+            < /View>
+    );
+    } else {
+        return (
+            <View style={styles.container}>
+            <Text style={styles.title}>
+            {this.state.dataSource.name}
+            </Text>
+            <Text style={styles.description}>
+            {this.state.dataSource.plantType}
+            </Text>
+            <Text style={styles.description} >
+            {this.state.dataSource.description}
+            </Text>
+            </View>
+    );
+    }
 }
 }
 
@@ -101,7 +92,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontSize: 18,
         textAlign: 'center',
-        color: '#656565'
+        color: '#656565',
+        flexWrap: 'wrap'
     },
     container: {
         padding: 30,
