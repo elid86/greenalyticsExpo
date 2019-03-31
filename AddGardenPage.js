@@ -15,8 +15,10 @@ import {
 
 export default class AddGarden extends Component<Props> {
 	static navigationOptions = {
-        title: 'Add Bed',
+        title: 'Add Garden',
     };
+
+
 
 	constructor(props){
 		super(props)
@@ -33,11 +35,11 @@ export default class AddGarden extends Component<Props> {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.headerText}>
-					Add desired bed name:
+					Add desired garden name:
 				</Text>
 				<TextInput
 					style={styles.Box}
-					placeholder="Enter Bed Name"
+					placeholder="Enter Garden Name"
 					onChangeText={TextInputValue => this.setState({TextInputValue})}
 					underlineColorAndroid="transparent"
 					/>
@@ -45,7 +47,7 @@ export default class AddGarden extends Component<Props> {
 					<Button
 						style={styles.Box}
 						onPress={this.buttonClockListener}
-						title="Add Bed"
+						title="Add Garden"
 						color="white"
 					/>
 				</View>
