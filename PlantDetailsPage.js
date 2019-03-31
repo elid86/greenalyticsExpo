@@ -64,7 +64,16 @@ constructor(props) {
         //- setting page settings
         isLoading: false,
         message: '',
-    };
+        }
+}
+
+componentDidMount () {
+
+    return fetch('https://Greenaltyics.ga/api/1/corn/corn') 
+        .then ((response)=>response.json() )
+        .then((responseJson)=> {
+
+        });
 }
 
 //- even handlers for page (must define when making object)
