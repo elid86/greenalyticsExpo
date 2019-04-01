@@ -8,26 +8,17 @@ import {
     FlatList,
     Text,
     TouchableOpacity,
+    Alert,
+    ActivityIndicator
 } from 'react-native';
 
 type Props = {};
-var selectedPlants = [];
+var selectedPlants = []; //list of plants selected by user
+var selectionSuccess = true; //checks that no plants had issues submitting
 
-//------- Hard coded data (used before connecting to api) -----------//
-const PlantsList = [
-    {plant_name: "Hybiscus", id: 1},
-    {plant_name: "Poppies", id: 2},
-    {plant_name: "Crocus", id: 3},
-    {plant_name: "Tansy", id: 4},
-    {plant_name: "Carrot", id: 5},
-    {plant_name: "Garlic", id: 6},
-    {plant_name: "Tomato", id: 7},
-    {plant_name: "Corn", id: 8},
-    {plant_name: "Hydrangea", id: 9},
-    {plant_name: "Rose", id: 10},
-    {plant_name: "Peonie", id: 11},
-    {plant_name: "Eggplant", id: 12}
-]
+//---- TEMP USER DETAILS -----//
+const userName = 'zlef';
+var dataSpot = [];
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -43,16 +34,17 @@ class ListItem extends React.PureComponent {
     };
 
 _onSelectionMade = () => {
-    if(selectedPlants.includes(PlantsList[this.props.index].plant_name)){
+    console.log('----- '+dataSpot)
+    if(selectedPlants.includes(dataSpot[this.props.index].name)){
         this.setState({
             textValue: '+'
         });
-        selectedPlants.splice( selectedPlants.indexOf(PlantsList[this.props.index].plant_name), 1 );
+        selectedPlants.splice( selectedPlants.indexOf(selectedPlants[this.props.index].name), 1 );
     }else{
     this.setState({
         textValue: '✔'
     });
-    selectedPlants.push(PlantsList[this.props.index].plant_name);
+    selectedPlants.push(dataSpot[this.props.index].name);
     }
     console.log(selectedPlants);
 };
@@ -66,7 +58,7 @@ render() {
     underlayColor='#dddddd'>
         <View style={styles.rowContainer}>
                 <View style={styles.flowRight}>
-                    <Text style={styles.title}>{item.plant_name}</Text>
+                    <Text style={styles.title}>{item.name}</Text>
                 </View>
             <View style={{flow:1,marginRight: 5, justifyContent: 'center'}}>
                 <TouchableHighlight onPress={this._onSelectionMade} style={{width: 50,}}>
@@ -92,38 +84,54 @@ export default class PlantGroupPage extends Component<Props> {
 constructor(props) {
     super(props);
     this.state = {
-        fakeContact: [],
-        SelectedFakeContactList: []
+        isLoading: true,
     }
 }
 
 //- even handlers for page
-/*
-_executeQuery = (query) => {
-    console.log(query);
-    this.setState({ isLoading: true });
-    fetch(query)
-        .then(response => response.json())
-.then(json => this._handleResponse(json.response))
-.catch(error =>
-    this.setState({
-        isLoading: false,
-        message: 'Something bad happened ' + error
-    }));
 
-};
+componentDidMount()
+{
+    this._fetchAllPlants();
+}
+
+_fetchAllPlants = () => {
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/plants';
+    console.log(url);
+    return fetch(url)
+        .then((response) => response.json())
+.then((responseJson) => {
+        this.setState({
+            isLoading: false,
+            dataSource: responseJson
+        })
+        dataSpot = this.state.dataSource;
+        console.log('---datasour: '+this.state.dataSource);
+})
+.catch((error) => {
+        this.setState({
+            isLoading: false,
+        })
+        Alert.alert(
+            'Error:',
+            'An error occured while loading the plants.')
+        console.error(error);
+});
+
+}
+
 
 _onSearchPressed = () => {
     const query = urlForQueryAndPage('plant_group', this.state.searchString);
     this._executeQuery(query);
 };
-*/
+
 
 
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantDetailsPage', {plant: PlantsList[index]});
+    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -137,44 +145,70 @@ onPressItem={this._onPressItem}
 />
 );
 
-
+_submitPressed = () => {
+    const {params} = this.props.navigation.state;
+    var gardenName = params.garden;
+    var plantGroupName = params.plantGroup;
+    if(selectedPlants.length == 0){
+        Alert.alert(
+            'Uh oh!',
+            'No plants have been selected...')
+    } else {
+        var count = 0; //used to ensure all the plants are added before popping
+        this.setState({
+            isLoading: true,
+        })
+        selectedPlants.map((plant)  => {
+            //this._addPlantCall(plant);
+            var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName+'/plantGroup/'+plantGroupName+'/plant/'+plant;
+        console.log(url);
+        fetch(url, {method: 'POST'})
+            .then((response) => {
+            console.log('---status code: '+response.statusMessage)
+            count = count + 1;
+            if(count == selectedPlants.length && selectionSuccess == true) {
+                this.props.navigation.pop();
+            }})
+        .catch((error) => {
+            Alert.alert(
+                'Error:',
+                'There was an error adding '+plant);
+        console.error(error);
+        selectionSuccess = false;
+    })
+    }
+        );
+        this.setState({
+            isLoading: false,
+        })
+    }
+}
 
 
 //- what will show on the page
 render() {
+    if (this.state.isLoading) {
+        return (
+            < View style={{top: 100}}>
+            < ActivityIndicator size='large'/>
+            < /View>
+    );
+    } else {
     return (
         <View style={{flex:1}}>
 <FlatList
-    data={PlantsList}
+    data={this.state.dataSource}
     keyExtractor={this._keyExtractor}
     renderItem={this._renderItem}
     />
-    <TouchableOpacity onPress={() => alert('Add clicked!!!')} style={styles.fab}>
+    <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
         <Text style={styles.fabIcon}>Submit</Text>
         </TouchableOpacity>
         </View>
 );
 }
 }
-
-//--------- Query function ----------------//
-/*function urlForQueryAndPage(key, value) {
-    const data = {
-        user_id: '1234',
-        pretty: '1',
-        encoding: 'json',
-        listing_type: 'buy',
-        action: 'search_listings',
-    };
-    data[key] = value;
-
-    const querystring = Object.keys(data)
-        .map(key => key + '=' + encodeURIComponent(data[key]))
-.join('&');
-
-    return 'https://api.nestoria.co.uk/api?' + querystring;
-}*/
-
+}
 
 
 //--------- Styles for this page -----------//

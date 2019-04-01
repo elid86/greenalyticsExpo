@@ -8,33 +8,16 @@ import {
     FlatList,
     Text,
     TouchableOpacity,
+    Alert,
+    ActivityIndicator,
 } from 'react-native';
 
 type Props = {};
-var pageGroupName = "";
 
-//------- Hard coded data (used before connecting to api) -----------//
-const PlantsList = {
-        "Greenhouse Bed": [
-            {plant_name: "Hybiscus"},
-            {plant_name: "Poppies"},
-            {plant_name: "Crocus"},
-            {plant_name: "Tansy"},
-        ],
-        "Veggie Bed": [
-            {plant_name: "Carrot"},
-            {plant_name: "Garlic"},
-            {plant_name: "Tomato"},
-            {plant_name: "Corn"},
-            {plant_name: "Eggplant"}
-        ],
-        "Flower Bed": [
-            {plant_name: "Hydrangea"},
-            {plant_name: "Rose"},
-            {plant_name: "Peonie"}
-        ]
-    }
-
+//------ TEMP API PIECES --------//
+const userName = 'zlef';
+var gardenNameToPass = '';  //used when adding plants
+var plantGroupNameToPass = '';
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
     _onPress = () => {
@@ -49,7 +32,7 @@ render() {
     underlayColor='#dddddd'>
         <View>
         <View style={styles.rowContainer}>
-        <Text style={styles.title}>{item.plant_name}</Text>
+        <Text style={styles.title}>{item.name}</Text>
     </View>
     <View style={styles.separator}/>
     </View>
@@ -71,36 +54,59 @@ constructor(props) {
     super(props);
     this.state = {
         //- setting page settings
-        isLoading: false,
+        isLoading: true,
         message: '',
     };
 }
 
 //- even handlers for page
-/*
-_executeQuery = (query) => {
-    console.log(query);
-    this.setState({ isLoading: true });
-    fetch(query)
-        .then(response => response.json())
-.then(json => this._handleResponse(json.response))
-.catch(error =>
+componentDidMount(){
+    const {params} = this.props.navigation.state;
+    console.log('-----plantsDetails params: ' +params.plantGroup);
+    gardenNameToPass = params.garden;
+    plantGroupNameToPass = params.plantGroup;
+    const item = params.plantGroup;
+    this._fetchData(item);
+    this.willFocusSubscription = this.props.navigation.addListener(
+        'willFocus',
+        () => {
+        this._fetchData(item);
+     }
+    );
+}
+
+componentWillUnmount() {
+    this.willFocusSubscription.remove();
+}
+
+_fetchData = (pageGroupName) => {
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/plantGroup/'+pageGroupName;
+    console.log(url);
+    return fetch(url)
+        .then((response) => response.json())
+.then((responseJson) => {
     this.setState({
         isLoading: false,
-        message: 'Something bad happened ' + error
-    }));
+        dataSource: responseJson.plants
+    })
+    console.log('---datasour: '+this.state.dataSource);
+})
+.catch((error) => {
+    this.setState({
+        isLoading: false,
+    })
+    Alert.alert(
+        'Error:',
+        'An error occured while loading your plants.')
+    console.error(error);
+});
 
-};
-
-_onSearchPressed = () => {
-    const query = urlForQueryAndPage('plant_group', this.state.searchString);
-    this._executeQuery(query);
-};
-*/
+}
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantDetailsPage', {plant: PlantsList[pageGroupName][index]});
+    console.log('---------'+this.state.dataSource[index].name);
+    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -115,26 +121,32 @@ onPressItem={this._onPressItem}
 
 _onPressAdd = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('AllPlantsPage');
+    navigate('AllPlantsPage', {garden: gardenNameToPass, plantGroup: plantGroupNameToPass});
 }
 
 
 //- what will show on the page
 render() {
-    const { params } = this.props.navigation.state;
-    pageGroupName = params.plant.group_name;
-    return (
-        <View style={{flex:1}}>
-        <FlatList
-            data={PlantsList[params.plant.group_name]}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-        />
-        <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
-            <Text style={styles.fabIcon}>+ Add A Plant</Text>
-        </TouchableOpacity>
-    </View>
-);
+    if (this.state.isLoading) {
+        return (
+            < View style={{top: 100}}>
+    < ActivityIndicator size='large'/>
+            < /View>
+    );
+    } else {
+        return (
+            <View style={{flex:1}}>
+            <FlatList
+                data={this.state.dataSource}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+            />
+            <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+                <Text style={styles.fabIcon}>+ Add A Plant</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
 }
 }
 

@@ -7,29 +7,16 @@ import {
     TouchableHighlight,
     FlatList,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 
 type Props = {};
+//------- FAKE DETAILS FOR API -----//
+const userName = 'zlef';
+var gardenNameToPass = ''; //defined when the page appears, must be passed for adding plants
 
-//------- Hard coded data (used before connecting to api) -----------//
-const PlantGroups = [
-    {
-        group_name: "Greenhouse Bed",
-        temp: 78,
-        humidity: 20
-    },
-    {
-        group_name: "Veggie Bed",
-        temp: 72,
-        humidity: 10
-    },
-    {
-        group_name: "Flower Bed",
-        temp: 73,
-        humidity: 10
-    }
-]
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -46,12 +33,9 @@ class ListItem extends React.PureComponent {
             <View>
                 <View style={styles.rowContainer}>
                     <View style={styles.flowRight}>
-                        <Text style={styles.title}>{item.group_name}</Text>
+                        <Text style={styles.title}>{item.name}</Text>
                     </View>
-                    <View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>
+
 
                 </View>
             <View style={styles.separator}/>
@@ -60,6 +44,12 @@ class ListItem extends React.PureComponent {
         );
     }
 }
+
+//-------- must be moved into other view to show temp and humidity when available
+/*<View style={{flow:1}}>
+                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
+                        <Text style={styles.description}>{item.humidity}%</Text>
+                    </View>*/
 
 //------ Plants Group Page --------//
 export default class PlantGroupPage extends Component<Props> {
@@ -74,36 +64,57 @@ constructor(props) {
     super(props);
     this.state = {
         //- setting page settings
-        isLoading: false,
+        isLoading: true,
         message: '',
     };
 }
 
 //- even handlers for page
-/*
-_executeQuery = (query) => {
-    console.log(query);
-    this.setState({ isLoading: true });
-    fetch(query)
-        .then(response => response.json())
-.then(json => this._handleResponse(json.response))
-.catch(error =>
-    this.setState({
-        isLoading: false,
-        message: 'Something bad happened ' + error
-    }));
+componentDidMount(){
+    const {params} = this.props.navigation.state;
+    console.log('-----garden params: ' +params.garden);
+    gardenNameToPass = params.garden;
+    const item = params.garden;
+    this._fetchData(item);
+    /*this.willFocusSubscription = this.props.navigation.addListener(
+        'willFocus',
+        () => {
+        this._fetchData();
+}
+);*/
+}
 
-};
+/*componentWillUnmount() {
+    this.willFocusSubscription.remove();
+}*/
 
-_onSearchPressed = () => {
-    const query = urlForQueryAndPage('plant_group', this.state.searchString);
-    this._executeQuery(query);
-};
-*/
+_fetchData = (gardenName) => {
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName;
+    console.log(url);
+    return fetch(url)
+        .then((response) => response.json())
+.then((responseJson) => {
+        this.setState({
+            isLoading: false,
+            dataSource: responseJson.plantGroups
+        })
+        console.log('---datasour: '+this.state.dataSource);
+})
+.catch((error) => {
+        this.setState({
+            isLoading: false,
+        })
+        Alert.alert(
+            'Error:',
+            'An error occured while loading your plant beds.')
+        console.error(error);
+});
+
+}
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantsListPage', {plant: PlantGroups[index]});
+    navigate('PlantsListPage', {plantGroup: this.state.dataSource[index].name, garden: gardenNameToPass});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -127,10 +138,17 @@ _onPressAdd = (index) => {
 //- what will show on the page
 render() {
     const { params } = this.props.navigation.state;
+    if (this.state.isLoading) {
+        return (
+            < View style={{top: 100}}>
+    < ActivityIndicator size='large'/>
+            < /View>
+    );
+    } else {
     return (
         <View style={{flex:1}}>
         <FlatList
-            data={PlantGroups}
+            data={this.state.dataSource}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
         />
@@ -138,7 +156,7 @@ render() {
             <Text style={styles.fabIcon}>+ Add A Bed</Text>
         </TouchableOpacity>
     </View>
-);
+);}
 }
 }
 

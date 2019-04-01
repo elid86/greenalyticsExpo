@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 
 type Props = {};
-type plantData = {};
+
+//-------- TEMPORARY API DETAILS -------//
+const userName = 'zlef';
 
 //------ Gardens Page --------//
 export default class PlantDetailsPage extends Component<Props> {
@@ -40,8 +42,9 @@ constructor(props)
 componentDidMount()
 {
     const {params} = this.props.navigation.state;
-    const item = params.plant.plant_name;
-    var url = 'http://greenalytics.ga:5000/api/1/plant/' + item
+    console.log('-----plantsDetails params: ' +params.toString());
+    const item = params.plant;
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/plant/'+item;
     console.log(url);
     return fetch(url)
         .then((response) => response.json())
@@ -63,8 +66,8 @@ componentDidMount()
 render(){
     if (this.state.isLoading) {
         return (
-            < View style={styles.description}>
-            < ActivityIndicator/>
+            < View style={{top: 100}}>
+    < ActivityIndicator size='large'/>
             < /View>
     );
     } else {
@@ -78,6 +81,15 @@ render(){
             </Text>
             <Text style={styles.description} >
             {this.state.dataSource.description}
+            </Text>
+            <Text style={styles.description} >
+            {this.state.dataSource.tempString[0]}
+            </Text>
+            <Text style={styles.description} >
+            {this.state.dataSource.tempString[1]}
+            </Text>
+            <Text style={styles.description} >
+            {this.state.dataSource.tempString[2]}
             </Text>
             </View>
     );

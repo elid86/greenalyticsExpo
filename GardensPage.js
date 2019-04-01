@@ -9,29 +9,16 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
-    Button
+    Button,
+    Alert,
+    ActivityIndicator
 } from 'react-native';
 
 type Props = {};
 
 //------- Hard coded data (used before connecting to api) -----------//
-const GardenList = [
-    {
-        group_name: "Greenhouse",
-        temp: 78,
-        humidity: 20
-    },
-    {
-        group_name: "Veggie",
-        temp: 72,
-        humidity: 10
-    },
-    {
-        group_name: "Flower",
-        temp: 73,
-        humidity: 10
-    }
-]
+const userName = 'zlef';
+
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -48,12 +35,9 @@ class ListItem extends React.PureComponent {
             <View>
                 <View style={styles.rowContainer}>
                     <View style={styles.flowRight}>
-                        <Text style={styles.title}>{item.group_name}</Text>
+                        <Text style={styles.title}>{item.name}</Text>
                     </View>
-                    <View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>
+
 
                 </View>
             <View style={styles.separator}/>
@@ -62,6 +46,12 @@ class ListItem extends React.PureComponent {
         );
     }
 }
+
+//------used for temp and humidity when hooked up
+/*<View style={{flow:1}}>
+                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
+                        <Text style={styles.description}>{item.humidity}%</Text>
+                    </View>*/
 
 //------ Plants Group Page --------//
 export default class PlantGroupPage extends Component<Props> {
@@ -76,7 +66,7 @@ constructor(props) {
     super(props);
     this.state = {
         //- setting page settings
-        isLoading: false,
+        isLoading: true,
         message: '',
         TextInputValue: ''
     };
@@ -88,30 +78,49 @@ buttonClickListener=()=> {
 }
 
 //- even handlers for page
-/*
-_executeQuery = (query) => {
-    console.log(query);
-    this.setState({ isLoading: true });
-    fetch(query)
-        .then(response => response.json())
-.then(json => this._handleResponse(json.response))
-.catch(error =>
-    this.setState({
-        isLoading: false,
-        message: 'Something bad happened ' + error
-    }));
+componentDidMount(){
+    this._fetchData();
+    /*this.willFocusSubscription = this.props.navigation.addListener(
+        'willFocus',
+        () => {
+        this._fetchData();
+}
+);*/
+}
 
-};
+/*componentWillUnmount() {
+    this.willFocusSubscription.remove();
+}*/
 
-_onSearchPressed = () => {
-    const query = urlForQueryAndPage('plant_group', this.state.searchString);
-    this._executeQuery(query);
-};
-*/
+_fetchData = () => {
+    //const { params } = this.props.navigation.state;
+    //var pageGroupName = params.plant.group_name;
+    var url = 'http://greenalytics.ga:5000/api/'+userName;
+    console.log(url);
+    return fetch(url)
+        .then((response) => response.json())
+.then((responseJson) => {
+        this.setState({
+            isLoading: false,
+            dataSource: responseJson
+        })
+        console.log('---datasour: '+this.state.dataSource);
+})
+.catch((error) => {
+        this.setState({
+            isLoading: false,
+        })
+        Alert.alert(
+            'Error:',
+            'An error occured while loading your gardens.')
+        console.error(error);
+});
+
+}
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantGroupPage', {plant: GardenList[index]});
+    navigate('PlantGroupPage', {garden: this.state.dataSource[index].name});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -135,10 +144,17 @@ _onPressAdd = (index) => {
 //- what will show on the page
 render() {
     const { params } = this.props.navigation.state;
+    if (this.state.isLoading) {
+        return (
+            < View style={{top: 100}}>
+    < ActivityIndicator size='large'/>
+        < /View>
+    );
+    } else {
     return (
         <View style={{flex:1}}>
         <FlatList
-            data={GardenList}
+            data={this.state.dataSource}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}
         />
@@ -147,7 +163,7 @@ render() {
         </TouchableOpacity>
         </View>
         );
-    } 
+    } }
 } 
 
 //--------- Query function ----------------//
