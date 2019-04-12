@@ -76,17 +76,9 @@ componentDidMount(){
     gardenNameToPass = params.garden;
     const item = params.garden;
     this._fetchData(item);
-    /*this.willFocusSubscription = this.props.navigation.addListener(
-        'willFocus',
-        () => {
-        this._fetchData();
-}
-);*/
 }
 
-/*componentWillUnmount() {
-    this.willFocusSubscription.remove();
-}*/
+
 
 _fetchData = (gardenName) => {
     var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName;
@@ -160,23 +152,6 @@ render() {
 }
 }
 
-//--------- Query function ----------------//
-/*function urlForQueryAndPage(key, value) {
-    const data = {
-        user_id: '1234',
-        pretty: '1',
-        encoding: 'json',
-        listing_type: 'buy',
-        action: 'search_listings',
-    };
-    data[key] = value;
-
-    const querystring = Object.keys(data)
-        .map(key => key + '=' + encodeURIComponent(data[key]))
-.join('&');
-
-    return 'https://api.nestoria.co.uk/api?' + querystring;
-}*/
 
 
 
