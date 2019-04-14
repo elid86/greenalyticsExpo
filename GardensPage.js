@@ -80,17 +80,16 @@ buttonClickListener=()=> {
 //- even handlers for page
 componentDidMount(){
     this._fetchData();
-    /*this.willFocusSubscription = this.props.navigation.addListener(
+    this.willFocusSubscription = this.props.navigation.addListener(
         'willFocus',
         () => {
         this._fetchData();
-}
-);*/
+        });
 }
 
-/*componentWillUnmount() {
+componentWillUnmount() {
     this.willFocusSubscription.remove();
-}*/
+}
 
 _fetchData = () => {
     //const { params } = this.props.navigation.state;
@@ -99,22 +98,22 @@ _fetchData = () => {
     console.log(url);
     return fetch(url)
         .then((response) => response.json())
-.then((responseJson) => {
-        this.setState({
-            isLoading: false,
-            dataSource: responseJson
+        .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    dataSource: responseJson
+                })
+                console.log('---datasource: '+this.state.dataSource);
         })
-        console.log('---datasour: '+this.state.dataSource);
-})
-.catch((error) => {
-        this.setState({
-            isLoading: false,
-        })
-        Alert.alert(
-            'Error:',
-            'An error occured while loading your gardens.')
-        console.error(error);
-});
+        .catch((error) => {
+                this.setState({
+                    isLoading: false,
+                })
+                Alert.alert(
+                    'Error:',
+                    'An error occured while loading your gardens.')
+                console.error(error);
+        });
 
 }
 
@@ -134,8 +133,16 @@ onPressItem={this._onPressItem}
 );
 
 _onPressAdd = (index) => {
+    //-prepare names of current gardens
+    var currentGardensNames = [];
+    var dataSource = this.state.dataSource;
+    Object.keys(this.state.dataSource).forEach(function(key) {
+        var lowName = dataSource[key].name.toLowerCase();   //easier to check for duplicates in addGarden Page
+        currentGardensNames.push(lowName);
+    });
+    //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
-    navigate('AddGardenPage');
+    navigate('AddGardenPage', {currentGardens: currentGardensNames});
 }
 
 

@@ -76,6 +76,16 @@ componentDidMount(){
     gardenNameToPass = params.garden;
     const item = params.garden;
     this._fetchData(item);
+    this.willFocusSubscription = this.props.navigation.addListener(
+        'willFocus',
+        () => {
+        this._fetchData(item);
+}
+);
+}
+
+componentWillUnmount() {
+    this.willFocusSubscription.remove();
 }
 
 
@@ -120,8 +130,17 @@ onPressItem={this._onPressItem}
 );
 
 _onPressAdd = (index) => {
+    //-prepare names of current gardens
+    var currentBedsNames = [];
+    var dataSource = this.state.dataSource;
+    Object.keys(this.state.dataSource).forEach(function(key) {
+        var lowName = dataSource[key].name.toLowerCase();   //easier to check for duplicates in addGarden Page
+        currentBedsNames.push(lowName);
+    });
+    //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
-    navigate('AddBed');
+
+    navigate('AddBed', {currentBeds: currentBedsNames, gardenName: gardenNameToPass});
 }
 
 
