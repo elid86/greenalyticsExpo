@@ -93,7 +93,7 @@ export default class AddGarden extends Component<Props> {
 					onChangeText={TextInputValue => this.setState({TextInputValue})}
 					underlineColorAndroid="transparent"
 					/>
-				<View style={[{width:"95%", margin:15, backgroundColor:"green", top: 0}]}>
+				<View style={[{width:"95%", margin:15, backgroundColor:"green", top: -225}]}>
 					<Button
 						style={styles.Box}
 						onPress={this.buttonClockListener}
@@ -117,14 +117,14 @@ export default class AddGarden extends Component<Props> {
 			backgroundColor: "white"
 		},
 		headerText: {
-			top: 0,
+			top: -240,
 			fontSize:30,
 			textAlign:"center",
 			margin:10,
 			fontWeight:'bold'
 		},
 		Box: {
-			top: 0,
+			top: -230,
 			height: 60,
 			width: "95%",
 			borderColor:"green",
