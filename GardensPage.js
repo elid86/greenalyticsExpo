@@ -26,6 +26,7 @@ class ListItem extends React.PureComponent {
         this.props.onPressItem(this.props.index);
     }
 
+
     render() {
         const item = this.props.item;
         return (
@@ -57,12 +58,10 @@ class ListItem extends React.PureComponent {
 export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
-    static navigationOptions = {
-        title: 'My Gardens',
-        headerLeft: null,
-        gesturesEnabled: false
+   static navigationOptions = {
+        title: 'My Garden',
+        gesturesEnabled: false,
     };
-
 //- initial state of the page
 constructor(props) {
     super(props);
@@ -150,8 +149,10 @@ _onPressAdd = (index) => {
 
 
 
+
 //- what will show on the page
 render() {
+    const {navigate}= this.props.navigation;
     const { params } = this.props.navigation.state;
     if (this.state.isLoading) {
         return (
