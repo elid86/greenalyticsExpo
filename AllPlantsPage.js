@@ -195,16 +195,20 @@ render() {
     );
     } else {
     return (
-        <View style={{flex:1}}>
-<FlatList
-    data={this.state.dataSource}
-    keyExtractor={this._keyExtractor}
-    renderItem={this._renderItem}
-    />
-    <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
-        <Text style={styles.fabIcon}>Submit</Text>
-        </TouchableOpacity>
-        </View>
+        <View style={{flex:1, flexDirection: 'column'}}>
+            <View >
+                <FlatList
+                data={this.state.dataSource}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+                />
+                </View>
+            <View style={{height: 60, alignSelf: 'flex-end'}}>
+                <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
+                <Text style={styles.fabIcon}>Submit</Text>
+                </TouchableOpacity>
+                </View>
+            </View>
 );
 }
 }
@@ -276,7 +280,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         left: 20,
         right: 20,
-        bottom: 20,
+        //bottom: 20,
         backgroundColor: '#274f19',
         borderRadius: 30,
         elevation: 8
