@@ -14,11 +14,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-type Props = {};
-
-//------- Hard coded data (used before connecting to api) -----------//
-const userName = 'zlef';
-
+const userName = "zlef";
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -207,7 +203,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     separator: {
-        height: 8,
+        height: 0,
         backgroundColor: 'white'
     },
     title: {
@@ -221,11 +217,11 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
+        flex: 1,
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginTop: 10,
+        marginRight: 8,
+        marginLeft: 8,
         borderRadius: 8,
         backgroundColor: '#c1e190',
         height: 60,

@@ -16,8 +16,7 @@ type Props = {};
 var selectedPlants = []; //list of plants selected by user
 var selectionSuccess = true; //checks that no plants had issues submitting
 
-//---- TEMP USER DETAILS -----//
-const userName = 'zlef';
+const userName = "zlef";
 var dataSpot = [];
 
 //------- creates rows for the table ----------//
@@ -34,17 +33,18 @@ class ListItem extends React.PureComponent {
     };
 
 _onSelectionMade = () => {
-    console.log('----- '+dataSpot)
-    if(selectedPlants.includes(dataSpot[this.props.index].name)){
+    console.log('----- '+dataSpot[this.props.index].name)
+    var plant = dataSpot[this.props.index].name;
+    if(selectedPlants.includes(plant)){
         this.setState({
             textValue: '+'
         });
-        selectedPlants.splice( selectedPlants.indexOf(selectedPlants[this.props.index].name), 1 );
+        selectedPlants.splice( selectedPlants.indexOf(plant), 1 );
     }else{
     this.setState({
         textValue: '✔'
     });
-    selectedPlants.push(dataSpot[this.props.index].name);
+    selectedPlants.push(plant);
     }
     console.log(selectedPlants);
 };
@@ -145,6 +145,11 @@ onPressItem={this._onPressItem}
 />
 );
 
+
+_addPlant= (plant, gardenName, plantGroupName) => {
+
+}
+
 _submitPressed = () => {
     const {params} = this.props.navigation.state;
     var gardenName = params.garden;
@@ -159,24 +164,87 @@ _submitPressed = () => {
             isLoading: true,
         })
         selectedPlants.map((plant)  => {
-            //this._addPlantCall(plant);
-            var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName+'/plantGroup/'+plantGroupName+'/plant/'+plant;
-        console.log(url);
-        fetch(url, {method: 'POST'})
-            .then((response) => {
-            console.log('---status code: '+response.statusMessage)
-            count = count + 1;
-            if(count == selectedPlants.length && selectionSuccess == true) {
-                this.props.navigation.pop();
-            }})
-        .catch((error) => {
-            Alert.alert(
-                'Error:',
-                'There was an error adding '+plant);
-        console.error(error);
-        selectionSuccess = false;
-    })
-    }
+            //-- check plant inc
+            var urlInc = 'http://greenalytics.ga:5000/api/'+userName+'/incompatibilities/plantGroup/'+plantGroupName+'/plant/'+plant;
+            console.log(urlInc);
+            fetch(urlInc)
+                .then((response) => {
+                    console.log(JSON.stringify(response, null, 4));
+                    return response.json();})
+                .then((responseJson) => {
+                    console.log("*** respone: "+responseJson);
+                    console.log("---responseJson.length: "+responseJson.length);
+                    if(Object.keys(responseJson).length == 0) {
+
+                            //-- Adding the plant to the group
+                            var urlAdd = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName+'/plantGroup/'+plantGroupName+'/plant/'+plant;
+                            console.log(urlAdd);
+                            fetch(urlAdd, {method: 'POST'})
+                                .then((response) => {
+                                console.log('---status code: '+response.statusMessage)
+                                if(count == selectedPlants.length && selectionSuccess == true) {
+                                this.props.navigation.pop();
+                            }})
+                            .catch((error) => {
+                                    Alert.alert(
+                                        'Error:',
+                                        'There was an error adding '+plant);
+                                console.error(error);
+                                selectionSuccess = false;
+                            })
+
+                    }else{
+                        var incompatiblePlantsString = "";
+                        var incompatiblePlantsList = [];
+                        console.log("**** NUMBER OF KEYS: "+Object.keys(responseJson).length);
+                        //console.log("---- response: "+response.0.item1);
+                        for(var i=0; i<(Object.keys(responseJson).length-2);i++) {
+                            console.log("*** Incompt plant: "+responseJson[i].item1);
+                            if(incompatiblePlantsList.includes(responseJson[i].item1) == false){
+                                incompatiblePlantsList.push(responseJson[i].item1)
+                                incompatiblePlantsString = incompatiblePlantsString+"\n"+responseJson[i].item1;
+                                console.log("----incompatiblePlantsString: "+incompatiblePlantsString);
+                            }
+                        }
+                        Alert.alert(
+                            'Warning!',
+                            ''+plant+' is not compatible with: '+incompatiblePlantsString+'\n Are you sure you want to add it?',
+                            [
+                                {text: 'Yes', onPress: () => {
+
+                                    //-- Adding the plant to the group anyway
+                                    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName+'/plantGroup/'+plantGroupName+'/plant/'+plant;
+                                    console.log(url);
+                                    fetch(url, {method: 'POST'})
+                                        .then((response) => {
+                                        console.log('---status code: '+response.statusMessage)
+                                        if(count == selectedPlants.length && selectionSuccess == true) {
+                                        this.props.navigation.pop();
+                                    }})
+                                    .catch((error) => {
+                                            Alert.alert(
+                                                'Error:',
+                                                'There was an error adding '+plant);
+                                        console.error(error);
+                                        selectionSuccess = false;
+                                    })
+
+                                } },
+                                {text: 'No', onPress: () => console.log('--- No Pressed for '+plant), style: 'cancel'}
+                            ],
+                                { cancelable: false }
+                            );
+                    }})
+                    .catch((error) => {
+                            Alert.alert(
+                                'Error:',
+                                'There was an error adding '+plant);
+                        console.error(error);
+                        selectionSuccess = false;
+                    })
+
+        count = count + 1;
+        }
         );
         this.setState({
             isLoading: false,
@@ -196,18 +264,14 @@ render() {
     } else {
     return (
         <View style={{flex:1, flexDirection: 'column'}}>
-            <View >
                 <FlatList
                 data={this.state.dataSource}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 />
-                </View>
-            <View style={{height: 60, alignSelf: 'flex-end'}}>
                 <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
                 <Text style={styles.fabIcon}>Submit</Text>
                 </TouchableOpacity>
-                </View>
             </View>
 );
 }
@@ -280,10 +344,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         left: 20,
         right: 20,
-        //bottom: 20,
+        bottom: 20,
         backgroundColor: '#274f19',
         borderRadius: 30,
-        elevation: 8
     },
     fabIcon: {
         fontSize: 30,

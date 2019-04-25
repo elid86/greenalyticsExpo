@@ -14,8 +14,7 @@ import {
 
 type Props = {};
 
-//------ TEMP API PIECES --------//
-const userName = 'zlef';
+const userName = "zlef";
 var gardenNameToPass = '';  //used when adding plants
 var plantGroupNameToPass = '';
 //------- creates rows for the table ----------//
