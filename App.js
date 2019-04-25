@@ -14,7 +14,8 @@ import AddGardenPage from './AddGardenPage';
 import PlantsListPage from './PlantsListPage';
 import PlantDetailsPage from './PlantDetailsPage';
 import AllPlantsPage from './AllPlantsPage';
-import Login from './Login'
+import Login from './Login';
+import Menu from './Menu';
 
 
 
@@ -23,7 +24,8 @@ import Login from './Login'
 
 const RootStack = createStackNavigator({
   //- set inital page in nav stack
-  Home: { screen: Login }, 
+  Home: {screen: Login }, 
+  Menu: {screen: Menu},
   GardensPage: { screen: GardensPage },
   //- Set up routes for each page
   AddGardenPage: {screen: AddGardenPage},

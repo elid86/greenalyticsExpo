@@ -3,18 +3,22 @@ import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-
 
 export default class Login extends Component {
 
+	static navigationOptions = {
+        gesturesEnabled: false,
+        
+    };
+
 	constructor(props) {
     super(props);
     this.state = {
         //- setting page settings
         isLoading: true,
-        username: 'mtravers',
     };
 }
 
 	_onPressLogin = (index) => {
 		const {navigate,state} = this.props.navigation;
-		navigate('GardensPage')
+		navigate('Menu')
 	}
 	render() {
 		const{params} =this.props.navigation.state;
@@ -32,7 +36,7 @@ export default class Login extends Component {
 				</View>
 			<View style={styles.container1}>
 				<TextInput 
-					placeholder="username"
+					placeholder=" username"
 					placeholderTextColor= "grey"
 					style={styles.input} />
 				<TextInput
@@ -76,7 +80,7 @@ const styles=StyleSheet.create({
 	},
 	input: {
 		height: 50,
-		top: -150,
+		top: -130,
 		backgroundColor:'rgba(255,255,255, 0.7)',
 		marginBottom: 20,
 		borderColor:"green",
