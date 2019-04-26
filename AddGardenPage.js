@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     TextInput,
     Button,
-    Alert
+    Alert,
+    ImageBackground
 } from 'react-native';
 
 var currentGardens = [];
@@ -83,25 +84,28 @@ export default class AddGarden extends Component<Props> {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text style={styles.headerText}>
-					Add desired garden name:
-				</Text>
-				<TextInput
-					style={styles.Box}
-					placeholder="Enter Garden Name"
-					onChangeText={TextInputValue => this.setState({TextInputValue})}
-					underlineColorAndroid="transparent"
-					/>
-				<View style={[{width:"95%", margin:15, backgroundColor:"green", top: -225}]}>
-					<Button
+			<ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
+				<View style={styles.container}>
+					<Text style={styles.headerText}>
+						Add desired garden name:
+					</Text>
+					<TextInput
 						style={styles.Box}
-						onPress={this.buttonClockListener}
-						title="Add Garden"
-						color="white"
-					/>
-				</View>
-	        </View>
+						placeholder="Enter Garden Name"
+						onChangeText={TextInputValue => this.setState({TextInputValue})}
+						underlineColorAndroid="transparent"
+						/>
+					<View style={[{width:"95%", margin:15, backgroundColor:"green", top: -225}]}>
+						<Button
+							style={styles.Box}
+							onPress={this.buttonClockListener}
+							title="Add Garden"
+							color="white"
+						/>
+					</View>
+		        </View>
+		    </ImageBackground>
+
 
 
 			);
@@ -109,6 +113,12 @@ export default class AddGarden extends Component<Props> {
 	}
 
 	const styles=StyleSheet.create({
+		backgroundImage: {
+	        flex: 1,
+	        alignSelf: 'stretch',
+	        width: null,
+	        justifyContent: 'center',
+    	},
 		container: {
 			top: 0,
 			flex:20,

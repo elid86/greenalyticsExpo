@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, View, Text, TouchableHighlight, ImageBackground, StyleSheet} from 'react-native';
+import { Button, View, Text, TouchableHighlight, ImageBackground, StyleSheet,TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 export default class HomeScreen extends Component {
@@ -17,7 +17,7 @@ export default class HomeScreen extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <ImageBackground source ={require('./assets/Tunnel.jpg')} style={styles.backgroundImage}>
-          <Button style={styles.input}
+          <Button 
             title="My Gardens"
             color='white'
             fontWeight= 'bold'

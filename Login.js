@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
+import {AppRegistry, StyleSheet, View, TextInput, TouchableOpacity, Text, ImageBackground, AsyncStorage} from 'react-native';
 
 export default class Login extends Component {
 
@@ -27,77 +27,100 @@ export default class Login extends Component {
 		return (		
 			<View style={styles.container}>
 				<View style={styles.logoContainer}>
-					<Image 
-						style={styles.logo}
-						source={require('./assets/leaf_logo.png')}/>
-					<Text style={styles.title}> Greenalytics </Text>
-				</View>
-				<View style={styles.logoContainer}>
-				</View>
-			<View style={styles.container1}>
-				<TextInput 
-					placeholder=" username"
-					placeholderTextColor= "grey"
-					style={styles.input} />
-				<TextInput
-					placeholder=" password" 
-					placeholderTextColor= "grey"
-					secureTextEntry
-					style={styles.input} />
+					<ImageBackground source={require('./assets/Garden.jpg')} style={styles.backgroundImage}>
+						<View style={styles.content}>
+							<Text style={styles.logo}>-GreenAlytics-</Text>
+							<View style={styles.container1}>
+								<TextInput underlineColorAndroid='transparent' style={styles.input}
+									placeholder=" username">
+								</TextInput>
 
-				<TouchableOpacity onPress={this._onPressLogin} style={styles.buttonContainer}>
-					<Text style={styles.buttonText}>LOGIN</Text>
-				</TouchableOpacity>
+								<TextInput secureTextEntry={true} underlineColorAndroid='transparent' style={styles.input}
+									placeholder=" password">
+								</TextInput>
+
+								<TouchableOpacity onPress={this._onPressLogin} style={styles.buttonContainer}>
+									<Text style={styles.buttonText}>LOGIN</Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</ImageBackground>
+				</View>
 			</View>
-		</View>
 		); }
 	}
 }
 
-const styles=StyleSheet.create({
-	container: {
-		flex: 1,
-	},
+
+const styles = StyleSheet.create ({
 	logoContainer: {
 		alignItems: 'center',
 		flexGrow: 1,
 		justifyContent: 'center'
 	},
 	logo: {
-		width: 200,
-		height: 200,
-		top: 10,
-	},
-	title: {
-		color: 'green',
-		marginTop: 10,
-		width: 160,
-		fontSize: 29,
-		textAlign: 'center'
-	},
-	container1: {
-		padding: 20
-	},
-	input: {
-		height: 50,
-		top: -130,
-		backgroundColor:'rgba(255,255,255, 0.7)',
-		marginBottom: 20,
-		borderColor:"green",
-		borderWidth: 3,
-		color: 'black'
-	},
-	buttonContainer: {
-		backgroundColor: 'green',
-		paddingVertical: 15,
-	},
-	buttonText: {
-		textAlign: 'center',
 		color: 'white',
-		fontWeight: '700'
+		fontSize: 40,
+		fontStyle: 'italic',
+		fontWeight: 'bold',
+		textShadowColor: '#252525',
+		textShadowOffset: {width: 2, height: 2},
+		textShadowRadius: 15,
+		marginBottom: 20,
+	},
+
+	container1: {
+		margin: 20,
+		marginBottom: 0,
+		padding: 20,
+		paddingBottom:10,
+		alignSelf: 'stretch',
+		borderWidth: 1,
+		borderColor: '#fff',
+		backgroundColor: 'rgba(255,255,255,0.7)',
+		color: 'grey',
+		borderColor: 'green',
+	},
+
+	input: {
+		fontSize: 16,
+		height: 40,
+		padding: 10,
+		marginBottom: 10,
+		backgroundColor: 'white',
+		borderColor: 'green',
+		color: 'grey',
+
+	},
+
+	buttonContainer: {
+		alignSelf: 'stretch',
+		margin: 20,
+		padding: 20,
+		color: 'green',
+		borderWidth: 1,
+		borderColor: 'green',
+		backgroundColor: 'rgba(255,255,255,0.6)',
+	},
+
+	buttonText: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		textAlign:'center',
+		color: 'green',
+	},
+
+	backgroundImage: {
+		flex: 1,
+		alignSelf: 'stretch',
+		width: null,
+		justifyContent: 'center',
+	},
+
+	content: {
+		alignItems: 'center',
+	},
+	container: {
+		flex: 1,
 	}
-
-
-
 });
-

@@ -11,7 +11,8 @@ import {
     TextInput,
     Button,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    ImageBackground
 } from 'react-native';
 
 type Props = {};
@@ -162,6 +163,7 @@ render() {
     );
     } else {
     return (
+    <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
         <View style={{flex:1}}>
         <FlatList
             data={this.state.dataSource}
@@ -172,6 +174,7 @@ render() {
             <Text style={styles.fabIcon}>+ Add A Garden</Text>
         </TouchableOpacity>
         </View>
+    </ImageBackground>
         );
     } }
 } 
@@ -204,6 +207,12 @@ const styles = StyleSheet.create({
         marginTop: 65,
         alignItems: 'center'
     },
+    backgroundImage: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+        justifyContent: 'center',
+    },
     flowRight: {
         flex: 1,
         flexDirection: 'row',
@@ -231,7 +240,11 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 8,
-        backgroundColor: 'white'
+        backgroundColor: '#c0e283',
+        marginLeft: 9,
+        marginRight: 9,
+        borderRadius: 8,
+
     },
     title: {
         left: 10,
@@ -250,7 +263,8 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         borderRadius: 8,
-        backgroundColor: '#c1e190',
+        borderColor: '#274f19',
+        backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
     },
     fab: {
