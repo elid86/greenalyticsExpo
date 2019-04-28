@@ -11,7 +11,8 @@ import {
     TextInput,
     Button,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    ImageBackground,
 } from 'react-native';
 
 type Props = {};
@@ -142,7 +143,7 @@ _onPressAdd = (index) => {
     });
     //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
-    navigate('AddGardenPage', {currentGardens: currentGardensNames});
+    navigate('AddHardware', {currentGardens: currentGardensNames});
 }
 
 
@@ -158,16 +159,18 @@ render() {
     );
     } else {
         return (
-            <View style={{flex:1}}>
-    <FlatList
-        data={this.state.dataSource}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
-        />
-        <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
-            <Text style={styles.fabIcon}>+ Add A Device</Text>
-        </TouchableOpacity>
-        </View>
+         <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
+                    <View style={{flex:1}}>
+            <FlatList
+                data={this.state.dataSource}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem}
+                />
+                <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+                    <Text style={styles.fabIcon}>+ Add A Device</Text>
+                </TouchableOpacity>
+                </View>
+        </ImageBackground>
     );
     } }
 }
@@ -208,7 +211,11 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 8,
-        backgroundColor: 'white'
+        backgroundColor: '#c0e283',
+        marginLeft: 9,
+        marginRight: 9,
+        borderRadius: 8,
+
     },
     title: {
         left: 10,
@@ -220,14 +227,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#656565'
     },
-    rowContainer: {
+   rowContainer: {
         flexDirection: 'row',
         padding: 10,
         justifyContent: 'center',
         marginLeft: 10,
         marginRight: 10,
         borderRadius: 8,
-        backgroundColor: '#c1e190',
+        borderColor: '#274f19',
+        backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
     },
     fab: {
@@ -252,6 +260,12 @@ const styles = StyleSheet.create({
         textAlign:"center",
         margin:10,
         fontWeight: "bold"
-    }
+    },
+    backgroundImage: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+        justifyContent: 'center',
+    },
 });
 

@@ -11,7 +11,7 @@ import {
     TextInput,
     Button,
     Alert,
-    ImageBackground
+    ImageBackground,
 } from 'react-native';
 
 var currentGardens = [];
@@ -19,7 +19,7 @@ var userName = "zlef"; //only temporary til we have user info
 
 export default class AddGarden extends Component<Props> {
 	static navigationOptions = {
-        title: 'Add Garden',
+        title: 'Hardware',
     };
 
 
@@ -43,19 +43,19 @@ export default class AddGarden extends Component<Props> {
 		console.log("---called buttonClockListener");
 		if(TextInputValue == ""){
             console.log("---text input == empty");
-            Alert.alert("Oops!", "You need to enter a name for your garden.");
+            Alert.alert("Oops!", "You entered an invalid code.");
         } else {
             console.log("---text input not empty");
             var lowName = TextInputValue.toLowerCase().trim();  //trim is used to remove spaces before and after
 		    if(currentGardens.includes(lowName)){
                 console.log("---should show garden name exists alert");
-                Alert.alert("Oops!", "That garden name already exists. Please choose a different name.");
+                Alert.alert("Oops!", "That hardware code is already in use. Please choose a different device.");
             } else {
                 console.log("---garden name doesn't exist");
                 Alert.alert(
                     //title
                     'Please Confirm:',
-                    'Are you sure you want to make \''+TextInputValue.trim()+'\' a new garden?',
+                    'Are you sure you want to make \''+TextInputValue.trim()+'\' a device?',
                     [
                         {text: 'Yes', onPress: () => this._addGarden(TextInputValue.trim()) },
                         {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'}
@@ -87,11 +87,11 @@ export default class AddGarden extends Component<Props> {
 			<ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
 				<View style={styles.container}>
 					<Text style={styles.headerText}>
-						Add desired garden name:
+						Add Hardware Device:
 					</Text>
 					<TextInput
 						style={styles.Box}
-						placeholder="Enter Garden Name"
+						placeholder="Enter Hardware Code"
 						onChangeText={TextInputValue => this.setState({TextInputValue})}
 						underlineColorAndroid="transparent"
 						/>
@@ -99,7 +99,7 @@ export default class AddGarden extends Component<Props> {
 						<Button
 							style={styles.Box}
 							onPress={this.buttonClockListener}
-							title="Add Garden"
+							title="Hardware Code"
 							color="white"
 						/>
 					</View>

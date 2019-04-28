@@ -9,7 +9,8 @@ import {
     Text,
     TouchableOpacity,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    ImageBackground,
 } from 'react-native';
 
 type Props = {};
@@ -195,20 +196,23 @@ render() {
     );
     } else {
     return (
-        <View style={{flex:1, flexDirection: 'column'}}>
-            <View >
-                <FlatList
-                data={this.state.dataSource}
-                keyExtractor={this._keyExtractor}
-                renderItem={this._renderItem}
-                />
+        <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
+            <View style={{flex:1, flexDirection: 'column'}}>
+                <View >
+                    <FlatList
+                    data={this.state.dataSource}
+                    keyExtractor={this._keyExtractor}
+                    renderItem={this._renderItem}
+                    />
+                    </View>
+                <View style={{height: 60, alignSelf: 'flex-end'}}>
+                    <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
+                    <Text style={styles.fabIcon}>Submit</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
-            <View style={{height: 60, alignSelf: 'flex-end'}}>
-                <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
-                <Text style={styles.fabIcon}>Submit</Text>
-                </TouchableOpacity>
-                </View>
-            </View>
+        </ImageBackground>
+
 );
 }
 }
@@ -222,6 +226,12 @@ const styles = StyleSheet.create({
         padding: 30,
         marginTop: 65,
         alignItems: 'center'
+    },
+    backgroundImage: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+        justifyContent: 'center',
     },
     flowRight: {
         flex: 1,
@@ -250,7 +260,7 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 8,
-        backgroundColor: 'white'
+        backgroundColor: '#c0e283',
     },
     title: {
         left: 10,
@@ -269,7 +279,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginLeft: 8,
         borderRadius: 8,
-        backgroundColor: '#c1e190',
+        backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
     },
     fab: {

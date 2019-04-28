@@ -15,6 +15,8 @@ import {
     ImageBackground
 } from 'react-native';
 
+import Swipeout from 'react-native-swipeout';
+
 type Props = {};
 
 //------- Hard coded data (used before connecting to api) -----------//
@@ -23,33 +25,74 @@ const userName = 'zlef';
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
+
+
     _onPress = () => {
         this.props.onPressItem(this.props.index);
     }
-
+    constructor(props) {
+        super(props);
+        this.state-{
+            activeRowKey: null
+        };
+    }
 
     render() {
         const item = this.props.item;
+        const swipeSettings ={ //Code for deleting an item in the Flatlist
+            autoClose: true,
+            onClose: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+
+            },
+            onOpen: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+            },
+            right: [
+                {
+                    onPress: () => {
+                        Alert.alert(
+                            'Alert',
+                            'Are you sure you want to delete this garden?',
+                            [
+                                {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Yes', onPress: () => {
+                                    //_fetchData.splice(this.props.index, 1);
+                                    //I think the api URL goes here in order to get rid of the flatlist value
+
+                                }},
+                            ],
+                            {cancelable:true}
+                        );
+
+                    },
+                    text: 'Delete', type: 'delete'
+                }
+            ],
+            rowID: this.props.index,
+            secID: 1,
+        };
         return (
-            <TouchableHighlight
-        onPress={this._onPress}
-        underlayColor='#dddddd'>
-            <View>
-                <View style={styles.rowContainer}>
-                    <View style={styles.flowRight}>
-                        <Text style={styles.title}>{item.name}</Text>
+            <Swipeout {...swipeSettings}>
+                <TouchableHighlight
+            onPress={this._onPress}
+            underlayColor='#dddddd'>
+                <View>
+                    <View style={styles.rowContainer}>
+                        <View style={styles.flowRight}>
+                            <Text style={styles.title}>{item.name}</Text>
+                        </View>
+
+
                     </View>
-
-
-                </View>
-            <View style={styles.separator}/>
-        </View>
-        </TouchableHighlight>
+                <View style={styles.separator}/>
+            </View>
+            </TouchableHighlight>
+        </Swipeout>
         );
     }
 }
-
-//------used for temp and humidity when hooked up
+//-----used for temp and humidity when hooked up
 /*<View style={{flow:1}}>
                         <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
                         <Text style={styles.description}>{item.humidity}%</Text>
@@ -157,24 +200,25 @@ render() {
     const { params } = this.props.navigation.state;
     if (this.state.isLoading) {
         return (
-            < View style={{top: 100}}>
-    < ActivityIndicator size='large'/>
-        < /View>
-    );
+                < View style={{top: 100}}>
+        < ActivityIndicator size='large'/>
+            < /View>
+        );
     } else {
     return (
-    <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
-        <View style={{flex:1}}>
-        <FlatList
-            data={this.state.dataSource}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-        />
-         <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
-            <Text style={styles.fabIcon}>+ Add A Garden</Text>
-        </TouchableOpacity>
-        </View>
-    </ImageBackground>
+            <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
+                    <View style={{flex:1}}>
+                            <FlatList
+                                data={this.state.dataSource}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                            />
+                    <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+                        <Text style={styles.fabIcon}>+ Add A Garden</Text>
+                    </TouchableOpacity>
+                    </View>
+            </ImageBackground>
+
         );
     } }
 } 
@@ -267,6 +311,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
     },
+     
+    headerText: {
+        fontSize:20,
+        textAlign:"center",
+        margin:10,
+        fontWeight: "bold"
+    },
     fab: {
         position: 'absolute',
         flexDirection: 'row',
@@ -283,11 +334,5 @@ const styles = StyleSheet.create({
     fabIcon: {
         fontSize: 30,
         color: 'white'
-    },
-    headerText: {
-        fontSize:20,
-        textAlign:"center",
-        margin:10,
-        fontWeight: "bold"
     }
 });
