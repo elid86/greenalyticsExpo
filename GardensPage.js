@@ -119,7 +119,7 @@ _fetchData = () => {
 }
 
 _onPressItem = (index) => {
-    const { navigate, state } = this.props.navigation;
+    const { navigate} = this.props.navigation;
     navigate('PlantGroupPage', {garden: this.state.dataSource[index].name});
 }
 
