@@ -73,7 +73,7 @@ _onPressAdd=(index) => {
             title="Hardware"
             color='white'
             fontWeight= 'bold'
-            onPress={() => this.props.navigation.navigate('Hardware')}
+            onPress={() => this.props.navigation.navigate('HardwareStatsPage')}
           />
           <Button
             title="Logout"

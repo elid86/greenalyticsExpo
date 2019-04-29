@@ -16,8 +16,12 @@ import PlantDetailsPage from './PlantDetailsPage';
 import AllPlantsPage from './AllPlantsPage';
 import Login from './Login';
 import Menu from './Menu';
+<<<<<<< HEAD
 import Hardware from './Hardware';
 import AddHardware from './AddHardware';
+=======
+import HardwareStatsPage from './HardwareStatsPage';
+>>>>>>> 5a5ce3af4037a350e515a2f283a17c75b9efe862
 
 
 
@@ -36,10 +40,14 @@ const RootStack = createStackNavigator({
   PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage},
   AllPlantsPage: { screen: AllPlantsPage},
+<<<<<<< HEAD
   Hardware:{screen: Hardware},
   AddHardware:{screen: AddHardware},
 
 
+=======
+  HardwareStatsPage: {screen: HardwareStatsPage}
+>>>>>>> 5a5ce3af4037a350e515a2f283a17c75b9efe862
 });
 
 //Javascript 3 requires an appContainer to be made instead of exporting the stackNav directly
