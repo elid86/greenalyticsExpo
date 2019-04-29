@@ -37,6 +37,23 @@ class ListItem extends React.PureComponent {
         };
     }
 
+
+    _DeleteGarden = (gardenName) => {
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName;
+    console.log(url);
+    fetch(url, {method: 'DELETE'})
+        .then((response)=> {
+            console.log('---status code: '+response.statusMessage);
+            this.props.navigation.pop();})
+        .catch((error) => {
+                Alert.alert(
+                    'Error:',
+                    'There was an error adding '+gardenName);
+            console.error(error);
+        });
+
+} 
+
     render() {
         const item = this.props.item;
         const swipeSettings ={ //Code for deleting an item in the Flatlist
@@ -56,10 +73,7 @@ class ListItem extends React.PureComponent {
                             'Are you sure you want to delete this garden?',
                             [
                                 {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
-                                {text: 'Yes', onPress: () => {
-                                    //_fetchData.splice(this.props.index, 1);
-                                    //I think the api URL goes here in order to get rid of the flatlist value
-
+                                {text: 'Yes', onPress: () => {this._DeleteGarden(this.props.index, 1);
                                 }},
                             ],
                             {cancelable:true}
@@ -161,6 +175,7 @@ _fetchData = () => {
         });
 
 }
+
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
