@@ -15,11 +15,7 @@ import {
     ImageBackground,
 } from 'react-native';
 
-type Props = {};
-
-//------- Hard coded data (used before connecting to api) -----------//
-const userName = 'zlef';
-
+const userName = "zlef";
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -215,7 +211,6 @@ const styles = StyleSheet.create({
         marginLeft: 9,
         marginRight: 9,
         borderRadius: 8,
-
     },
     title: {
         left: 10,
@@ -227,12 +222,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#656565'
     },
-   rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
+    rowContainer: {
+        flex: 1,
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginTop: 10,
+        marginRight: 8,
+        marginLeft: 8,
         borderRadius: 8,
         borderColor: '#274f19',
         backgroundColor: 'rgba(255,255,255,0.7)',

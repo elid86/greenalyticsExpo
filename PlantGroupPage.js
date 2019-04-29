@@ -17,8 +17,7 @@ import Swipeout from 'react-native-swipeout';
 
 
 type Props = {};
-//------- FAKE DETAILS FOR API -----//
-const userName = 'zlef';
+const userName = "zlef";
 var gardenNameToPass = ''; //defined when the page appears, must be passed for adding plants
 
 
@@ -263,7 +262,6 @@ const styles = StyleSheet.create({
         marginLeft: 9,
         marginRight: 9,
         borderRadius: 8,
-
     },
     title: {
         left: 10,
@@ -276,11 +274,11 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flexDirection: 'row',
-        padding: 10,
+        flex: 1,
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginTop: 10,
+        marginRight: 8,
+        marginLeft: 8,
         borderRadius: 8,
         borderColor: '#274f19',
         backgroundColor: 'rgba(255,255,255,0.7)',

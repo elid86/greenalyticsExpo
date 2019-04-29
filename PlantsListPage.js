@@ -44,7 +44,7 @@ render() {
                     onPress: () => {
                         Alert.alert(
                             'Alert',
-                            'Are you sure you want to delete this garden bed?',
+                            'Are you sure you want to delete this plant?',
                             [
                                 {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
                                 {text: 'Yes', onPress: () => {

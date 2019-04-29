@@ -13,9 +13,11 @@ import {
     Alert
 } from 'react-native';
 
-var userName = "zlef"; //temp til we get user info
+const userName = "zlef";
 var currentBedsNames = [];
 var gardenNameToPass = '';
+
+
 export default class AddGarden extends Component<Props> {
 	static navigationOptions = {
         title: 'Add Bed',

@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 var currentGardens = [];
-var userName = "zlef"; //only temporary til we have user info
+const userName = "zlef";
 
 export default class AddGarden extends Component<Props> {
 	static navigationOptions = {
