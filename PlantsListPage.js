@@ -10,11 +10,16 @@ import {
     TouchableOpacity,
     Alert,
     ActivityIndicator,
+    ImageBackground,
 } from 'react-native';
+
+import Swipeout from 'react-native-swipeout';
+
 
 type Props = {};
 
-const userName = "zlef";
+//------ TEMP API PIECES --------//
+const userName = 'zlef';
 var gardenNameToPass = '';  //used when adding plants
 var plantGroupNameToPass = '';
 //------- creates rows for the table ----------//
@@ -25,19 +30,58 @@ class ListItem extends React.PureComponent {
 
 render() {
     const item = this.props.item;
-    return (
-        <TouchableHighlight
-    onPress={this._onPress}
-    underlayColor='#dddddd'>
-        <View>
-        <View style={styles.rowContainer}>
-        <Text style={styles.title}>{item.name}</Text>
-    </View>
-    <View style={styles.separator}/>
-    </View>
-    </TouchableHighlight>
-);
-}
+    const swipeSettings ={ //Code for deleting an item in the Flatlist
+            autoClose: true,
+            onClose: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+
+            },
+            onOpen: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+            },
+            right: [
+                {
+                    onPress: () => {
+                        Alert.alert(
+                            'Alert',
+                            'Are you sure you want to delete this plant?',
+                            [
+                                {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Yes', onPress: () => {
+                                    //_fetchData.splice(this.props.index, 1);
+                                    //I think the api URL goes here in order to get rid of the flatlist value
+
+                                }},
+                            ],
+                            {cancelable:true}
+                        );
+
+                    },
+                    text: 'Delete', type: 'delete'
+                }
+            ],
+            rowID: this.props.index,
+            secID: 1,
+        };
+        return (
+            <Swipeout {...swipeSettings}>
+                <TouchableHighlight
+            onPress={this._onPress}
+            underlayColor='#dddddd'>
+                <View>
+                    <View style={styles.rowContainer}>
+                        <View style={styles.flowRight}>
+                            <Text style={styles.title}>{item.name}</Text>
+                        </View>
+
+
+                    </View>
+                <View style={styles.separator}/>
+            </View>
+            </TouchableHighlight>
+        </Swipeout>
+        );
+    }
 }
 
 //------ Plants Group Page --------//
@@ -134,6 +178,7 @@ render() {
     );
     } else {
         return (
+        <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
             <View style={{flex:1}}>
             <FlatList
                 data={this.state.dataSource}
@@ -144,6 +189,7 @@ render() {
                 <Text style={styles.fabIcon}>+ Add A Plant</Text>
             </TouchableOpacity>
         </View>
+        </ImageBackground>
     );
 }
 }
@@ -177,6 +223,12 @@ const styles = StyleSheet.create({
         marginTop: 65,
         alignItems: 'center'
     },
+    backgroundImage: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: null,
+        justifyContent: 'center',
+    },
     flowRight: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -201,9 +253,12 @@ const styles = StyleSheet.create({
     textContainer: {
         flex: 1
     },
-    separator: {
-        height: 0,
-        backgroundColor: 'white'
+   separator: {
+        height: 8,
+        backgroundColor: '#c0e283',
+        marginLeft: 9,
+        marginRight: 9,
+        borderRadius: 8,
     },
     title: {
         left: 10,
@@ -222,7 +277,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginLeft: 8,
         borderRadius: 8,
-        backgroundColor: '#c1e190',
+        backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
     },
     fab: {

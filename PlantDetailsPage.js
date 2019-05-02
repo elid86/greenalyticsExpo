@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#48BBEC',
+        color: 'green',
         marginRight: 5,
         flexGrow: 1,
         height: 36

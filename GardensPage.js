@@ -15,6 +15,8 @@ import {
     ImageBackground
 } from 'react-native';
 
+import Swipeout from 'react-native-swipeout';
+
 type Props = {};
 
 //------- Hard coded data (used before connecting to api) -----------//
@@ -23,40 +25,95 @@ const userName = 'zlef';
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
+
+
     _onPress = () => {
         this.props.onPressItem(this.props.index);
     }
+    constructor(props) {
+        super(props);
+        this.state-{
+            activeRowKey: null
+        };
+    }
 
+
+    _DeleteGarden = (gardenName) => {
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenName;
+    console.log(url);
+    fetch(url, {method: 'DELETE'})
+        .then((response)=> {
+            console.log('---status code: '+response.statusMessage);
+            this.props.navigation.pop();})
+        .catch((error) => {
+                Alert.alert(
+                    'Error:',
+                    'There was an error adding '+gardenName);
+            console.error(error);
+        });
+
+} 
 
     render() {
         const item = this.props.item;
+        const swipeSettings ={ //Code for deleting an item in the Flatlist
+            autoClose: true,
+            onClose: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+
+            },
+            onOpen: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+            },
+            right: [
+                {
+                    onPress: () => {
+                        Alert.alert(
+                            'Alert',
+                            'Are you sure you want to delete this garden?',
+                            [
+                                {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Yes', onPress: () => {this._DeleteGarden(this.props.index, 1);
+                                }},
+                            ],
+                            {cancelable:true}
+                        );
+
+                    },
+                    text: 'Delete', type: 'delete'
+                }
+            ],
+            rowID: this.props.index,
+            secID: 1,
+        };
         return (
-            <TouchableHighlight
-        onPress={this._onPress}
-        underlayColor='#dddddd'>
-            <View>
-                <View style={styles.rowContainer}>
-                    <View style={styles.flowRight}>
-                        <Text style={styles.title}>{item.name}</Text>
+            <Swipeout {...swipeSettings}>
+                <TouchableHighlight
+            onPress={this._onPress}
+            underlayColor='#dddddd'>
+                <View>
+                    <View style={styles.rowContainer}>
+                        <View style={styles.flowRight}>
+                            <Text style={styles.title}>{item.name}</Text>
+                        </View>
+
+
                     </View>
-
-
-                </View>
-            <View style={styles.separator}/>
-        </View>
-        </TouchableHighlight>
+                <View style={styles.separator}/>
+            </View>
+            </TouchableHighlight>
+        </Swipeout>
         );
     }
 }
-
-//------used for temp and humidity when hooked up
+//-----used for temp and humidity when hooked up
 /*<View style={{flow:1}}>
                         <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
                         <Text style={styles.description}>{item.humidity}%</Text>
                     </View>*/
 
-//------ Garden Page --------//
-export default class GardensPage extends Component<Props> {
+//------ Plants Group Page --------//
+export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
    static navigationOptions = {
@@ -119,8 +176,9 @@ _fetchData = () => {
 
 }
 
+
 _onPressItem = (index) => {
-    const { navigate} = this.props.navigation;
+    const { navigate, state } = this.props.navigation;
     navigate('PlantGroupPage', {garden: this.state.dataSource[index].name});
 }
 
@@ -157,24 +215,25 @@ render() {
     const { params } = this.props.navigation.state;
     if (this.state.isLoading) {
         return (
-            < View style={{top: 100}}>
-    < ActivityIndicator size='large'/>
-        < /View>
-    );
+                < View style={{top: 100}}>
+        < ActivityIndicator size='large'/>
+            < /View>
+        );
     } else {
     return (
-    <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
-        <View style={{flex:1}}>
-        <FlatList
-            data={this.state.dataSource}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-        />
-         <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
-            <Text style={styles.fabIcon}>+ Add A Garden</Text>
-        </TouchableOpacity>
-        </View>
-    </ImageBackground>
+            <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
+                    <View style={{flex:1}}>
+                            <FlatList
+                                data={this.state.dataSource}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                            />
+                    <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
+                        <Text style={styles.fabIcon}>+ Add A Garden</Text>
+                    </TouchableOpacity>
+                    </View>
+            </ImageBackground>
+
         );
     } }
 } 
@@ -243,7 +302,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#c0e283',
         marginLeft: 9,
         marginRight: 9,
-        borderRadius: 8
+        borderRadius: 8,
+
     },
     title: {
         left: 10,
@@ -256,15 +316,22 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flex: 1,
+        flexDirection: 'row',
+        padding: 10,
         justifyContent: 'center',
-        marginTop: 10,
-        marginRight: 8,
-        marginLeft: 8,
+        marginLeft: 10,
+        marginRight: 10,
         borderRadius: 8,
         borderColor: '#274f19',
         backgroundColor: 'rgba(255,255,255,0.7)',
         height: 60,
+    },
+     
+    headerText: {
+        fontSize:20,
+        textAlign:"center",
+        margin:10,
+        fontWeight: "bold"
     },
     fab: {
         position: 'absolute',
@@ -282,11 +349,5 @@ const styles = StyleSheet.create({
     fabIcon: {
         fontSize: 30,
         color: 'white'
-    },
-    headerText: {
-        fontSize:20,
-        textAlign:"center",
-        margin:10,
-        fontWeight: "bold"
     }
 });

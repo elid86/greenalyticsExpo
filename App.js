@@ -16,6 +16,8 @@ import PlantDetailsPage from './PlantDetailsPage';
 import AllPlantsPage from './AllPlantsPage';
 import Login from './Login';
 import Menu from './Menu';
+import Hardware from './Hardware';
+import AddHardware from './AddHardware';
 import HardwareStatsPage from './HardwareStatsPage';
 
 
@@ -35,6 +37,8 @@ const RootStack = createStackNavigator({
   PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage},
   AllPlantsPage: { screen: AllPlantsPage},
+  Hardware:{screen: Hardware},
+  AddHardware:{screen: AddHardware},
   HardwareStatsPage: {screen: HardwareStatsPage}
 });
 

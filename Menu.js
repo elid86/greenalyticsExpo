@@ -52,9 +52,14 @@ export default class HomeScreen extends Component {
 
     };
 
+_onPressAdd=(index) => {
+  const{navigate, state}=this.props.navigation;
+  navigate('GardensPage');
+}
 
   render() {
-      registerForPushNotificationsAsync();
+    const {navigate}= this.props.navigation;
+    registerForPushNotificationsAsync();
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <ImageBackground source ={require('./assets/Tunnel.jpg')} style={styles.backgroundImage}>
