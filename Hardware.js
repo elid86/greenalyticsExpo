@@ -32,7 +32,7 @@ render() {
         <View>
         <View style={styles.rowContainer}>
         <View style={styles.flowRight}>
-        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.title}>{item[0]}</Text>
         </View>
 
 
@@ -91,58 +91,43 @@ componentWillUnmount() {
 _fetchData = () => {
     //const { params } = this.props.navigation.state;
     //var pageGroupName = params.plant.group_name;
-    var url = 'http://greenalytics.ga:5000/api/'+userName;
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/hardware';
     console.log(url);
     return fetch(url)
         .then((response) => response.json())
-.then((responseJson) => {
+        .then((responseJson) => {
         this.setState({
             isLoading: false,
             dataSource: responseJson
         })
         console.log('---datasource: '+this.state.dataSource);
-})
-.catch((error) => {
-        this.setState({
-            isLoading: false,
         })
-        Alert.alert(
-            'Error:',
-            'An error occured while loading your gardens.')
-        console.error(error);
-});
-
+        .catch((error) => {
+                this.setState({
+                    isLoading: false,
+                })
+                Alert.alert(
+                    'Error:',
+                    'An error occured while loading your gardens.')
+                console.error(error);
+        });
 }
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantGroupPage', {garden: this.state.dataSource[index].name});
+    console.log("--MAC add: "+this.state.dataSource[index][1])
+    navigate('HardwareStatsPage', {MACaddress: this.state.dataSource[index][1]});
 }
 
 _keyExtractor = (item, index) => index.toString();
 
 _renderItem = ({item, index}) => (
-<ListItem
-item={item}
-index={index}
-onPressItem={this._onPressItem}
-/>
+    <ListItem
+    item={item}
+    index={index}
+    onPressItem={this._onPressItem}
+    />
 );
-
-_onPressAdd = (index) => {
-    //-prepare names of current gardens
-    var currentGardensNames = [];
-    var dataSource = this.state.dataSource;
-    Object.keys(this.state.dataSource).forEach(function(key) {
-        var lowName = dataSource[key].name.toLowerCase();   //easier to check for duplicates in addGarden Page
-        currentGardensNames.push(lowName);
-    });
-    //-prepare and call navigation
-    const { navigate, state } = this.props.navigation;
-    navigate('AddHardware', {currentGardens: currentGardensNames});
-}
-
-
 
 
 //- what will show on the page
@@ -156,15 +141,12 @@ render() {
     } else {
         return (
          <ImageBackground source={require('./assets/Background.png')} style={styles.backgroundImage}>
-                    <View style={{flex:1}}>
+            <View style={{flex:1}}>
             <FlatList
                 data={this.state.dataSource}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 />
-                <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
-                    <Text style={styles.fabIcon}>+ Add A Device</Text>
-                </TouchableOpacity>
                 </View>
         </ImageBackground>
     );
