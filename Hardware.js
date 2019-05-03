@@ -55,7 +55,7 @@ export default class PlantGroupPage extends Component<Props> {
 
     //- details of the navigation bar on this page
     static navigationOptions = {
-        title: 'My Gardens',
+        title: 'My Hardware',
     };
 
 //- initial state of the page
