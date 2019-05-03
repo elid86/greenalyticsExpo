@@ -20,7 +20,7 @@ var count = 0;
 var incompatiblePlantsString = "";
 var incompatiblePlant = "";
 
-const userName = "zlef";
+var userName = "";
 var dataSpot = [];
 
 
@@ -95,8 +95,10 @@ constructor(props) {
 
 //- even handlers for page
 
-componentDidMount()
+async componentDidMount()
 {
+    const { params } = this.props.navigation.state;
+    userName = await params.userName;
     this._fetchAllPlants();
 }
 
@@ -105,7 +107,7 @@ _fetchAllPlants = () => {
     console.log(url);
     return fetch(url)
         .then((response) => response.json())
-.then((responseJson) => {
+        .then((responseJson) => {
         this.setState({
             isLoading: false,
             dataSource: responseJson
@@ -136,7 +138,7 @@ _onSearchPressed = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name});
+    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name, userName: userName});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -169,6 +171,7 @@ AsyncAlert = () =>  {
                         this.setState({
                             isLoading: false,
                         })
+                        this.props.navigation.pop();
                     } else {
                         this._submitPressed();
                     }
@@ -331,11 +334,9 @@ render() {
                     renderItem={this._renderItem}
                     />
                     </View>
-                <View style={{height: 60, alignSelf: 'flex-end'}}>
                     <TouchableOpacity onPress={this._submitPressed} style={styles.fab}>
-                    <Text style={styles.fabIcon}>Submit</Text>
+                        <Text style={styles.fabIcon}>Submit</Text>
                     </TouchableOpacity>
-                    </View>
                 </View>
         </ImageBackground>
 );

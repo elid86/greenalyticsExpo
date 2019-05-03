@@ -14,7 +14,7 @@ import {
 type Props = {};
 
 //-------- TEMPORARY API DETAILS -------//
-const userName = 'zlef';
+var userName = '';
 
 //------ Gardens Page --------//
 export default class PlantDetailsPage extends Component<Props> {
@@ -39,10 +39,11 @@ constructor(props)
 
 //- even handlers for page (must define when making object)
 
-componentDidMount()
+async componentDidMount()
 {
     const {params} = this.props.navigation.state;
     console.log('-----plantsDetails params: ' +params.toString());
+    userName = await params.userName;
     const item = params.plant;
     var url = 'http://greenalytics.ga:5000/api/'+userName+'/plant/'+item;
     console.log(url);

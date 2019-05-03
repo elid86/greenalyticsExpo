@@ -13,7 +13,7 @@ import {
     Alert
 } from 'react-native';
 
-const userName = "zlef";
+var userName = "";
 var currentBedsNames = [];
 var gardenNameToPass = '';
 
@@ -30,8 +30,9 @@ export default class AddGarden extends Component<Props> {
 	}
 
 	//--load existing Beds
-	componentDidMount(){
+	async componentDidMount(){
 		const {params} = this.props.navigation.state;
+		userName = await params.userName;
 		gardenNameToPass = params.gardenName;
 		currentBedsNames = params.currentBeds;
 		console.log("*** current garden: "+gardenNameToPass);

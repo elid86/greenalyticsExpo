@@ -19,7 +19,7 @@ import Swipeout from 'react-native-swipeout';
 type Props = {};
 
 //------ TEMP API PIECES --------//
-const userName = 'zlef';
+var userName = '';
 var gardenNameToPass = '';  //used when adding plants
 var plantGroupNameToPass = '';
 //------- creates rows for the table ----------//
@@ -103,9 +103,10 @@ constructor(props) {
 }
 
 //- even handlers for page
-componentDidMount(){
+async componentDidMount(){
     const {params} = this.props.navigation.state;
     console.log('-----plantsDetails params: ' +params.plantGroup);
+    userName = await params.userName;
     gardenNameToPass = params.garden;
     plantGroupNameToPass = params.plantGroup;
     const item = params.plantGroup;
@@ -149,7 +150,7 @@ _fetchData = (pageGroupName) => {
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
     console.log('---------'+this.state.dataSource[index].name);
-    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name});
+    navigate('PlantDetailsPage', {plant: this.state.dataSource[index].name, userName: userName});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -164,7 +165,7 @@ onPressItem={this._onPressItem}
 
 _onPressAdd = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('AllPlantsPage', {garden: gardenNameToPass, plantGroup: plantGroupNameToPass});
+    navigate('AllPlantsPage', {garden: gardenNameToPass, plantGroup: plantGroupNameToPass, userName: userName});
 }
 
 

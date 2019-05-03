@@ -1,5 +1,19 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, TextInput, TouchableOpacity, Text, ImageBackground, AsyncStorage} from 'react-native';
+import {
+	AppRegistry,
+	StyleSheet,
+	View,
+	TextInput,
+	TouchableOpacity,
+	Text,
+	ImageBackground,
+	AsyncStorage,
+	Alert
+} from 'react-native';
+import {Notifications} from "expo";
+
+var userID = "";
+var password = "";
 
 export default class Login extends Component {
 
@@ -16,10 +30,64 @@ export default class Login extends Component {
     };
 }
 
-	_onPressLogin = (index) => {
-		const {navigate,state} = this.props.navigation;
-		navigate('Menu')
+	_onPressLogin = async (index) => {
+		//const {navigate,state} = this.props.navigation;
+		//navigate('Menu')
+		if (userID == "" || password == ""){
+			Alert.alert(
+				'Whoops!',
+				'Make sure you\'ve entered your username and password.',
+				{ cancelable: true }
+				//clicking out side of alert will cancel
+			);
+		} else {
+
+			this.state = {
+				isLoading: true,
+			}
+
+			// Get the token that uniquely identifies this device
+			let token = await Notifications.getExpoPushTokenAsync();
+			console.log("---- NOTIFICATION TOKEN: " + token);
+
+			var url = 'http://greenalytics.ga:5000/api/auth/login/' + userID + '/' + password + '/' + token;
+			console.log(url);
+			fetch(url, {method: 'POST'})
+				.then((response) => {
+					console.log(JSON.stringify(response, null, 4));
+					return response.text();
+				})
+				.then((responseText) => {
+					console.log('---response: ' + responseText);
+					if (responseText == userID) {
+						this.state = {
+							isLoading: false,
+						}
+						const { navigate } = this.props.navigation;
+						navigate('Menu', {userName: userID});
+					} else {
+						this.state = {
+							isLoading: false,
+						}
+						Alert.alert(
+							'Whoops!',
+							'Your username or password incorrect. Please, try again.'
+							,
+							{cancelable: true}
+							//clicking out side of alert will cancel
+						);
+					}
+				})
+				.catch((error) => {
+					Alert.alert(
+						'Error:',
+						'There was an error logging in');
+					console.error(error);
+				});
+		}
 	}
+
+
 	render() {
 		const{params} =this.props.navigation.state;
     	if (this.state.isLoading) {
@@ -31,13 +99,19 @@ export default class Login extends Component {
 						<View style={styles.content}>
 							<Text style={styles.logo}>-GreenAlytics-</Text>
 							<View style={styles.container1}>
-								<TextInput underlineColorAndroid='transparent' style={styles.input}
-									placeholder=" username">
-								</TextInput>
+								<TextInput underlineColorAndroid='transparent'
+									style={styles.input}
+									onChangeText={TextInputValue => {userID = TextInputValue}}
+									placeholder=" username"
+										/>
 
-								<TextInput secureTextEntry={true} underlineColorAndroid='transparent' style={styles.input}
-									placeholder=" password">
-								</TextInput>
+								<TextInput
+									secureTextEntry={true}
+									underlineColorAndroid='transparent'
+									style={styles.input}
+									onChangeText={TextInputValue => {password = TextInputValue}}
+									placeholder=" password"
+										/>
 
 								<TouchableOpacity onPress={this._onPressLogin} style={styles.buttonContainer}>
 									<Text style={styles.buttonText}>LOGIN</Text>

@@ -17,7 +17,7 @@ import Swipeout from 'react-native-swipeout';
 
 
 type Props = {};
-const userName = "zlef";
+var userName = "";
 var gardenNameToPass = ''; //defined when the page appears, must be passed for adding plants
 
 
@@ -110,9 +110,10 @@ constructor(props) {
 }
 
 //- even handlers for page
-componentDidMount(){
+async componentDidMount(){
     const {params} = this.props.navigation.state;
     console.log('-----garden params: ' +params.garden);
+    userName = await params.userName;
     gardenNameToPass = params.garden;
     const item = params.garden;
     this._fetchData(item);
@@ -156,7 +157,7 @@ _fetchData = (gardenName) => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantsListPage', {plantGroup: this.state.dataSource[index].name, garden: gardenNameToPass});
+    navigate('PlantsListPage', {plantGroup: this.state.dataSource[index].name, garden: gardenNameToPass, userName: userName});
 }
 
 _keyExtractor = (item, index) => index.toString();
@@ -180,7 +181,7 @@ _onPressAdd = (index) => {
     //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
 
-    navigate('AddBed', {currentBeds: currentBedsNames, gardenName: gardenNameToPass});
+    navigate('AddBed', {currentBeds: currentBedsNames, gardenName: gardenNameToPass, userName: userName});
 }
 
 

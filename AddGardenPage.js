@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 var currentGardens = [];
-const userName = "zlef";
+var userName = "";
 
 export default class AddGarden extends Component<Props> {
 	static navigationOptions = {
@@ -32,9 +32,10 @@ export default class AddGarden extends Component<Props> {
 
 
 	//--load existing Gardens
-    componentDidMount(){
+    async componentDidMount(){
         const {params} = this.props.navigation.state;
         currentGardens = params.currentGardens;
+        userName = await params.userName;
     }
 
 

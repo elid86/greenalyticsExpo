@@ -15,7 +15,7 @@ import {
     ImageBackground,
 } from 'react-native';
 
-const userName = "zlef";
+var userName = "";
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
@@ -75,7 +75,9 @@ buttonClickListener=()=> {
 }
 
 //- even handlers for page
-componentDidMount(){
+async componentDidMount(){
+    const { params } = this.props.navigation.state;
+    userName = await params.userName;
     this._fetchData();
     this.willFocusSubscription = this.props.navigation.addListener(
         'willFocus',
