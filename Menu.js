@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Button, View, Text, TouchableHighlight, ImageBackground, StyleSheet,TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-
+var userName = '';
 //------ PUSH NOTIFICATIONS --------
 
 import { Permissions, Notifications } from 'expo';
@@ -12,6 +12,7 @@ import { Permissions, Notifications } from 'expo';
 
 //- setup
 async function registerForPushNotificationsAsync() {
+
     const {status: existingStatus} = await
     Permissions.getAsync(
         Permissions.NOTIFICATIONS
@@ -33,10 +34,6 @@ async function registerForPushNotificationsAsync() {
         return;
     }
 
-    // Get the token that uniquely identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
-    console.log("---- NOTIFICATION TOKEN: "+token);
-
 }
 
 
@@ -52,7 +49,13 @@ export default class HomeScreen extends Component {
 
     };
 
-_onPressAdd=(index) => {
+
+ async componentDidMount() {
+      const { params } = this.props.navigation.state;
+      userName = await params.userName;
+  };
+
+    _onPressAdd=(index) => {
   const{navigate, state}=this.props.navigation;
   navigate('GardensPage');
 }
@@ -67,13 +70,13 @@ _onPressAdd=(index) => {
             title="My Gardens"
             color='white'
             fontWeight= 'bold'
-            onPress={() => this.props.navigation.navigate('GardensPage')}
+            onPress={() => this.props.navigation.navigate('GardensPage', {userName: userName})}
           />
           <Button
             title="Hardware"
             color='white'
             fontWeight= 'bold'
-            onPress={() => this.props.navigation.navigate('HardwareStatsPage')}
+            onPress={() => this.props.navigation.navigate('Hardware', {userName: userName})}
           />
           <Button
             title="Logout"

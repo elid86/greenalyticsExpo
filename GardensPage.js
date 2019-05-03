@@ -20,7 +20,7 @@ import Swipeout from 'react-native-swipeout';
 type Props = {};
 
 //------- Hard coded data (used before connecting to api) -----------//
-const userName = 'zlef';
+var userName = '';
 
 
 //------- creates rows for the table ----------//
@@ -124,7 +124,10 @@ buttonClickListener=()=> {
 }
 
 //- even handlers for page
-componentDidMount(){
+async componentDidMount(){
+    const { params } = this.props.navigation.state;
+    userName = await params.userName;
+    console.log("got username: "+userName);
     this._fetchData();
     this.willFocusSubscription = this.props.navigation.addListener(
         'willFocus',
@@ -138,12 +141,13 @@ componentWillUnmount() {
 }
 
 _fetchData = () => {
-    //const { params } = this.props.navigation.state;
-    //var pageGroupName = params.plant.group_name;
     var url = 'http://greenalytics.ga:5000/api/'+userName;
     console.log(url);
     return fetch(url)
-        .then((response) => response.json())
+        .then((response) => {
+            console.log(JSON.stringify(response, null, 4));
+            return response.json();
+        })
         .then((responseJson) => {
                 this.setState({
                     isLoading: false,
@@ -166,7 +170,7 @@ _fetchData = () => {
 
 _onPressItem = (index) => {
     const { navigate, state } = this.props.navigation;
-    navigate('PlantGroupPage', {garden: this.state.dataSource[index].name});
+    navigate('PlantGroupPage', {garden: this.state.dataSource[index].name, userName: userName});
 }
 
 
@@ -191,7 +195,7 @@ _onPressAdd = (index) => {
     });
     //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
-    navigate('AddGardenPage', {currentGardens: currentGardensNames});
+    navigate('AddGardenPage', {currentGardens: currentGardensNames, userName: userName});
 }
 
 
