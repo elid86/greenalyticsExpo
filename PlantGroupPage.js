@@ -28,45 +28,47 @@ class ListItem extends React.PureComponent {
     }
 
 
+     sampleFunction=()=> {
+        var item = this.props.item;
+        //this.props.deleteItem(this.props.index)
+        console.log("====================================================" + item)
+        Alert.alert(
+            "Delete Bed?",
+            "Alert Message",
+            [
+                {text: 'Yes', onPress:()=> this._DeleteItem(item)},
+                {text: 'No', onPress:() => console.log('No Pressed'), style: 'cancel'}
+
+
+            ],
+                {cancelable: true}
+            );
+
+    }
+
+_DeleteItem = (item) => {
+    //var item = dataSpot[this.props.index];
+    //var item = this.props.item.plantGroups[this.props.index]
+    console.log("in deleteItem")
+    console.log("---------------------------------------------------------------------------" + item)
+    console.log(item)
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenNameToPass+'/plantGroup/'+item.name;
+    console.log("==========================================================================" + url);
+    fetch(url, {method: 'DELETE'})
+
+
+}
+
+
     render() {
         const item = this.props.item;
-        const swipeSettings ={ //Code for deleting an item in the Flatlist
-            autoClose: true,
-            onClose: (secID, rowID, direction) => {
-                this.setState({activeRowKey: this.props.item.key});
-
-            },
-            onOpen: (secID, rowID, direction) => {
-                this.setState({activeRowKey: this.props.item.key});
-            },
-            right: [
-                {
-                    onPress: () => {
-                        Alert.alert(
-                            'Alert',
-                            'Are you sure you want to delete this garden bed?',
-                            [
-                                {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
-                                {text: 'Yes', onPress: () => {
-                                    //_fetchData.splice(this.props.index, 1);
-                                    //I think the api URL goes here in order to get rid of the flatlist value
-
-                                }},
-                            ],
-                            {cancelable:true}
-                        );
-
-                    },
-                    text: 'Delete', type: 'delete'
-                }
-            ],
-            rowID: this.props.index,
-            secID: 1,
-        };
+        var accountID = item.accountID
+        //var gardenName = item.name
+        var plantgroup=item.name
         return (
-            <Swipeout {...swipeSettings}>
                 <TouchableHighlight
             onPress={this._onPress}
+            onLongPress={this.sampleFunction}
             underlayColor='#dddddd'>
                 <View>
                     <View style={styles.rowContainer}>
@@ -79,7 +81,6 @@ class ListItem extends React.PureComponent {
                 <View style={styles.separator}/>
             </View>
             </TouchableHighlight>
-        </Swipeout>
         );
     }
 }
