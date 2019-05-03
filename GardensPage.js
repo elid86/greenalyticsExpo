@@ -106,11 +106,7 @@ class ListItem extends React.PureComponent {
         );
     }
 }
-//-----used for temp and humidity when hooked up
-/*<View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>*/
+
 
 //------ Plants Group Page --------//
 export default class PlantGroupPage extends Component<Props> {

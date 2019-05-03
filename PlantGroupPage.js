@@ -23,13 +23,25 @@ var gardenNameToPass = ''; //defined when the page appears, must be passed for a
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
+
     _onPress = () => {
         this.props.onPressItem(this.props.index);
     }
 
 
     render() {
+        var tempText = '';
+        var humText = '';
+
         const item = this.props.item;
+
+        if(item.summary.temp != 0){
+            tempText = ""+item.summary.temp+"\u00B0F"
+        }
+        if(item.summary.humidity != 0){
+            humText = ""+item.summary.humidity+"%"
+        }
+
         const swipeSettings ={ //Code for deleting an item in the Flatlist
             autoClose: true,
             onClose: (secID, rowID, direction) => {
@@ -73,8 +85,10 @@ class ListItem extends React.PureComponent {
                         <View style={styles.flowRight}>
                             <Text style={styles.title}>{item.name}</Text>
                         </View>
-
-
+                        <View style={{flow:1, Right: 5, width: 50}}>
+                            <Text style={styles.description}>{tempText}</Text>
+                            <Text style={styles.description}>{humText}</Text>
+                        </View>
                     </View>
                 <View style={styles.separator}/>
             </View>
@@ -84,12 +98,6 @@ class ListItem extends React.PureComponent {
     }
 }
 
-
-//-------- must be moved into other view to show temp and humidity when available
-/*<View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>*/
 
 //------ Plants Group Page --------//
 export default class PlantGroupPage extends Component<Props> {
@@ -116,19 +124,19 @@ async componentDidMount(){
     userName = await params.userName;
     gardenNameToPass = params.garden;
     const item = params.garden;
-    this._fetchData(item);
+    await this._fetchData(item);
+
     this.willFocusSubscription = this.props.navigation.addListener(
         'willFocus',
         () => {
         this._fetchData(item);
-}
-);
+        }
+    );
 }
 
 componentWillUnmount() {
     this.willFocusSubscription.remove();
 }
-
 
 
 _fetchData = (gardenName) => {
@@ -275,7 +283,7 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
         marginRight: 8,
