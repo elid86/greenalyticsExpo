@@ -27,6 +27,9 @@ export default class Login extends Component {
     this.state = {
         //- setting page settings
         isLoading: true,
+         username: "",
+		password :"",
+        
     };
 }
 
@@ -91,7 +94,6 @@ export default class Login extends Component {
 	render() {
 		const{params} =this.props.navigation.state;
     	if (this.state.isLoading) {
-
 		return (		
 			<View style={styles.container}>
 				<View style={styles.logoContainer}>
@@ -124,8 +126,6 @@ export default class Login extends Component {
 		); }
 	}
 }
-
-
 const styles = StyleSheet.create ({
 	logoContainer: {
 		alignItems: 'center',
