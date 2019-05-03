@@ -387,7 +387,6 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 8,
-        backgroundColor: '#c0e283',
     },
     title: {
         left: 10,

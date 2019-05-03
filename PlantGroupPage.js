@@ -298,7 +298,6 @@ const styles = StyleSheet.create({
     },
     separator: {
         height: 8,
-        backgroundColor: '#c0e283',
         marginLeft: 9,
         marginRight: 9,
         borderRadius: 8,
