@@ -29,6 +29,38 @@ class ListItem extends React.PureComponent {
     }
 
 
+     sampleFunction=()=> {
+        var item = this.props.item;
+        //this.props.deleteItem(this.props.index)
+        console.log("====================================================" + item)
+        Alert.alert(
+            "Delete Bed?",
+            "Alert Message",
+            [
+                {text: 'Yes', onPress:()=> this._DeleteItem(item)},
+                {text: 'No', onPress:() => console.log('No Pressed'), style: 'cancel'}
+
+
+            ],
+                {cancelable: true}
+            );
+
+    }
+
+_DeleteItem = (item) => {
+    //var item = dataSpot[this.props.index];
+    //var item = this.props.item.plantGroups[this.props.index]
+    console.log("in deleteItem")
+    console.log("---------------------------------------------------------------------------" + item)
+    console.log(item)
+    var url = 'http://greenalytics.ga:5000/api/'+userName+'/garden/'+gardenNameToPass+'/plantGroup/'+item.name;
+    console.log("==========================================================================" + url);
+    fetch(url, {method: 'DELETE'})
+
+
+}
+
+
     render() {
         var tempText = '';
         var humText = '';
@@ -76,9 +108,9 @@ class ListItem extends React.PureComponent {
             secID: 1,
         };
         return (
-            <Swipeout {...swipeSettings}>
                 <TouchableHighlight
             onPress={this._onPress}
+            onLongPress={this.sampleFunction}
             underlayColor='#dddddd'>
                 <View>
                     <View style={styles.rowContainer}>
@@ -93,7 +125,6 @@ class ListItem extends React.PureComponent {
                 <View style={styles.separator}/>
             </View>
             </TouchableHighlight>
-        </Swipeout>
         );
     }
 }

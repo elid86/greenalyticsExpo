@@ -12,7 +12,8 @@ import {
     Button,
     Alert,
     ActivityIndicator,
-    ImageBackground
+    ImageBackground,
+    RefreshControl,
 } from 'react-native';
 
 import Swipeout from 'react-native-swipeout';
@@ -101,6 +102,8 @@ export default class PlantGroupPage extends Component<Props> {
         title: 'My Garden',
         gesturesEnabled: false,
     };
+
+    
 //- initial state of the page
 constructor(props) {
     super(props);
@@ -109,7 +112,8 @@ constructor(props) {
         isLoading: true,
         message: '',
         TextInputValue: '',
-        deletedRowKey: null
+        deletedRowKey: null,
+        refreshing: false,
 
     };
 }
@@ -196,6 +200,16 @@ _onPressAdd = (index) => {
 
 
 
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        _fetchData.then(() => {
+          this.setState({refreshing: false});
+        });
+      }
+
+      
+
+
 
 
 //- what will show on the page
@@ -216,6 +230,12 @@ render() {
                                 data={this.state.dataSource}
                                 keyExtractor={this._keyExtractor}
                                 renderItem={this._renderItem}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={this.state.refreshing}
+                                        onRefresh={this._onRefresh}
+                                        />
+                                    }
                             />
                     <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
                         <Text style={styles.fabIcon}>+ Add A Garden</Text>
