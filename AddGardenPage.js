@@ -73,7 +73,7 @@ export default class AddGarden extends Component<Props> {
         console.log(url);
         fetch(url, {method: 'POST'})
             .then((response) => {
-            console.log('---status code: '+response.statusMessage);
+            console.log('---status code: '+response);
             this.props.navigation.pop();})
         .catch((error) => {
                 Alert.alert(

@@ -3,17 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2e96efed-e69b-4133-9a37-56fcdcc141de" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AddBed.js" beforeDir="false" afterPath="$PROJECT_DIR$/AddBed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AddGardenPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/AddGardenPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AllPlantsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/AllPlantsPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GardensPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/GardensPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hardware.js" beforeDir="false" afterPath="$PROJECT_DIR$/Hardware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantDetailsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantGroupPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantGroupPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantsListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantsListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reminders.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AllPlantsPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="173" column="52" selection-start-line="173" selection-start-column="52" selection-end-line="173" selection-end-column="52" />
+            <state relative-caret-position="234">
+              <caret line="249" column="18" selection-start-line="249" selection-start-column="18" selection-end-line="249" selection-end-column="18" />
               <folding>
                 <element signature="e#15#56#0" expanded="true" />
               </folding>
@@ -50,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlantGroupPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
+            <state relative-caret-position="2283">
               <caret line="207" column="17" selection-start-line="207" selection-start-column="17" selection-end-line="209" selection-end-column="35" />
               <folding>
                 <element signature="e#15#56#0" expanded="true" />
@@ -62,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="105" column="6" selection-start-line="105" selection-start-column="6" selection-end-line="105" selection-end-column="6" />
+            <state relative-caret-position="-581">
+              <caret line="87" column="27" selection-start-line="87" selection-start-column="27" selection-end-line="87" selection-end-column="27" />
               <folding>
                 <element signature="e#15#56#0" expanded="true" />
               </folding>
@@ -74,11 +66,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AddBed.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
+            <state relative-caret-position="453">
               <caret line="103" column="22" lean-forward="true" selection-start-line="98" selection-start-column="20" selection-end-line="103" selection-end-column="22" />
               <folding>
                 <element signature="e#15#56#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AddGardenPage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="75" column="51" selection-start-line="75" selection-start-column="51" selection-end-line="75" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -98,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GardensPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
+            <state relative-caret-position="321">
+              <caret line="208" column="86" selection-start-line="208" selection-start-column="86" selection-end-line="208" selection-end-column="86" />
             </state>
           </provider>
         </entry>
@@ -114,11 +115,6 @@
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AddHardware.js">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -163,6 +159,7 @@
       <find>registry.npmjs.org/query</find>
       <find>navi</find>
       <find>navigate</find>
+      <find>this.props.items</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -181,16 +178,9 @@
         <option value="$PROJECT_DIR$/package-lock.json" />
         <option value="$PROJECT_DIR$/Login.js" />
         <option value="$PROJECT_DIR$/Menu.js" />
-        <option value="$PROJECT_DIR$/GardensPage.js" />
-        <option value="$PROJECT_DIR$/GardensPage.js" />
-        <option value="$PROJECT_DIR$/GardensPage.js" />
-        <option value="$PROJECT_DIR$/GardensPage.js" />
         <option value="$PROJECT_DIR$/AddBed.js" />
         <option value="$PROJECT_DIR$/AddBed.js" />
         <option value="$PROJECT_DIR$/AddBed.js" />
-        <option value="$PROJECT_DIR$/AddGardenPage.js" />
-        <option value="$PROJECT_DIR$/AddGardenPage.js" />
-        <option value="$PROJECT_DIR$/AddGardenPage.js" />
         <option value="$PROJECT_DIR$/Hardware.js" />
         <option value="$PROJECT_DIR$/Hardware.js" />
         <option value="$PROJECT_DIR$/Hardware.js" />
@@ -202,6 +192,13 @@
         <option value="$PROJECT_DIR$/PlantsListPage.js" />
         <option value="$PROJECT_DIR$/PlantsListPage.js" />
         <option value="$PROJECT_DIR$/PlantsListPage.js" />
+        <option value="$PROJECT_DIR$/AddGardenPage.js" />
+        <option value="$PROJECT_DIR$/AddGardenPage.js" />
+        <option value="$PROJECT_DIR$/AddGardenPage.js" />
+        <option value="$PROJECT_DIR$/GardensPage.js" />
+        <option value="$PROJECT_DIR$/GardensPage.js" />
+        <option value="$PROJECT_DIR$/GardensPage.js" />
+        <option value="$PROJECT_DIR$/GardensPage.js" />
         <option value="$PROJECT_DIR$/AllPlantsPage.js" />
         <option value="$PROJECT_DIR$/AllPlantsPage.js" />
         <option value="$PROJECT_DIR$/AllPlantsPage.js" />
@@ -295,14 +292,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125877000" />
+    <option name="totallyTimeSpent" value="128850000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.16203336" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.16203336" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -312,7 +309,7 @@
       <window_info anchor="bottom" id="Run" order="1" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32978722" />
       <window_info anchor="bottom" id="TODO" order="3" weight="0.32978722" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49960285" visible="true" weight="0.11398176" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" sideWeight="0.49960285" visible="true" weight="0.16261399" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50039715" side_tool="true" weight="0.15957446" />
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
@@ -321,6 +318,27 @@
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Palette&#9;" order="2" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.16203336" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="0" />
+      <window_info anchor="bottom" id="Run" order="1" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32978722" />
+      <window_info anchor="bottom" id="TODO" order="3" weight="0.32978722" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" sideWeight="0.49960285" visible="true" weight="0.1443769" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50039715" side_tool="true" weight="0.15957446" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TypeScript" order="7" />
+      <window_info anchor="bottom" id="Find" order="8" weight="0.32978722" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -418,13 +436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AddGardenPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AddHardware.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -471,25 +482,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PlantsListPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="105" column="6" selection-start-line="105" selection-start-column="6" selection-end-line="105" selection-end-column="6" />
-          <folding>
-            <element signature="e#15#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GardensPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AddBed.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="103" column="22" lean-forward="true" selection-start-line="98" selection-start-column="20" selection-end-line="103" selection-end-column="22" />
+        <state relative-caret-position="-581">
+          <caret line="87" column="27" selection-start-line="87" selection-start-column="27" selection-end-line="87" selection-end-column="27" />
           <folding>
             <element signature="e#15#56#0" expanded="true" />
           </folding>
@@ -498,7 +492,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PlantGroupPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
+        <state relative-caret-position="2283">
           <caret line="207" column="17" selection-start-line="207" selection-start-column="17" selection-end-line="209" selection-end-column="35" />
           <folding>
             <element signature="e#15#56#0" expanded="true" />
@@ -506,10 +500,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AddBed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="103" column="22" lean-forward="true" selection-start-line="98" selection-start-column="20" selection-end-line="103" selection-end-column="22" />
+          <folding>
+            <element signature="e#15#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AddGardenPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="75" column="51" selection-start-line="75" selection-start-column="51" selection-end-line="75" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GardensPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="208" column="86" selection-start-line="208" selection-start-column="86" selection-end-line="208" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AllPlantsPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="173" column="52" selection-start-line="173" selection-start-column="52" selection-end-line="173" selection-end-column="52" />
+        <state relative-caret-position="234">
+          <caret line="249" column="18" selection-start-line="249" selection-start-column="18" selection-end-line="249" selection-end-column="18" />
           <folding>
             <element signature="e#15#56#0" expanded="true" />
           </folding>

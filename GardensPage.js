@@ -206,7 +206,7 @@ _onPressAdd = (index) => {
     });
     //-prepare and call navigation
     const { navigate, state } = this.props.navigation;
-    navigate('AddGardenPage', {currentGardens: currentGardensNames});
+    navigate('AddGardenPage', {currentGardens: currentGardensNames, userName: userName});
 }
 
 

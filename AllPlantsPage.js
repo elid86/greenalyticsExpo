@@ -246,7 +246,7 @@ _submitPressed = async () => {
                 return response.json();
             })
             .then((responseJson) => {
-                //console.log("*** respone: " + responseJson);
+                //console.log("*** responeJson: " + responseJson);
                 //console.log("---responseJson.length: " + responseJson.length);
 
                 if (Object.keys(responseJson).length == 0) {
@@ -291,13 +291,14 @@ _submitPressed = async () => {
                     var incompatiblePlantsList = [];
                     console.log("**** NUMBER OF KEYS: " + Object.keys(responseJson).length);
                     //console.log("---- response: "+response.0.item1);
-                    for (var i = 0; i < (Object.keys(responseJson).length - 2); i++) {
+                    for (var i = 0; i < (Object.keys(responseJson).length);) {
                         console.log("*** Incompt plant: " + responseJson[i].item1);
                         if (incompatiblePlantsList.includes(responseJson[i].item1) == false) {
                             incompatiblePlantsList.push(responseJson[i].item1)
                             incompatiblePlantsString = incompatiblePlantsString + "\n" + responseJson[i].item1;
                             console.log("----incompatiblePlantsString: " + incompatiblePlantsString);
                         }
+                        i++;
                     }
                     incompatiblePlant = plant;
                     this.AsyncAlert();
