@@ -1,4 +1,5 @@
 'use strict';
+import React, {Component} from 'react';
 
 import {
   createStackNavigator,
@@ -13,6 +14,12 @@ import AddGardenPage from './AddGardenPage';
 import PlantsListPage from './PlantsListPage';
 import PlantDetailsPage from './PlantDetailsPage';
 import AllPlantsPage from './AllPlantsPage';
+import Login from './Login';
+import Menu from './Menu';
+import Hardware from './Hardware';
+import AddHardware from './AddHardware';
+import HardwareStatsPage from './HardwareStatsPage';
+
 
 
 //-------- Navigation --------//
@@ -20,7 +27,9 @@ import AllPlantsPage from './AllPlantsPage';
 
 const RootStack = createStackNavigator({
   //- set inital page in nav stack
-  Home: { screen: GardensPage },
+  Home: {screen: Login }, 
+  Menu: {screen: Menu},
+  GardensPage: { screen: GardensPage },
   //- Set up routes for each page
   AddGardenPage: {screen: AddGardenPage},
   PlantGroupPage: {screen: PlantGroupPage},
@@ -28,9 +37,13 @@ const RootStack = createStackNavigator({
   PlantsListPage: { screen: PlantsListPage },
   PlantDetailsPage: { screen: PlantDetailsPage},
   AllPlantsPage: { screen: AllPlantsPage},
+  Hardware:{screen: Hardware},
+  AddHardware:{screen: AddHardware},
+  HardwareStatsPage: {screen: HardwareStatsPage}
 });
 
 //Javascript 3 requires an appContainer to be made instead of exporting the stackNav directly
 const App = createAppContainer(RootStack);
 export default App;
+
 
