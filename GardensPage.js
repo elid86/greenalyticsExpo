@@ -83,8 +83,6 @@ _DeleteItem = (item) => {
                         <View style={styles.flowRight}>
                             <Text style={styles.title}>{item.name}</Text>
                         </View>
-
-
                     </View>
                 <View style={styles.separator}/>
             </View>
@@ -113,8 +111,6 @@ constructor(props) {
         message: '',
         TextInputValue: '',
         deletedRowKey: null,
-        refreshing: false,
-
     };
 }
 
@@ -200,16 +196,9 @@ _onPressAdd = (index) => {
 
 
 
-    _onRefresh = () => {
-        this.setState({refreshing: true});
-        _fetchData.then(() => {
-          this.setState({refreshing: false});
-        });
-      }
+
 
       
-
-
 
 
 //- what will show on the page
@@ -230,12 +219,6 @@ render() {
                                 data={this.state.dataSource}
                                 keyExtractor={this._keyExtractor}
                                 renderItem={this._renderItem}
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={this.state.refreshing}
-                                        onRefresh={this._onRefresh}
-                                        />
-                                    }
                             />
                     <TouchableOpacity onPress={this._onPressAdd} style={styles.fab}>
                         <Text style={styles.fabIcon}>+ Add A Garden</Text>

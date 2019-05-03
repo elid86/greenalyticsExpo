@@ -33,7 +33,7 @@ sampleFunction=()=> {
         //this.props.deleteItem(this.props.index)
         console.log("====================================================" + item)
         Alert.alert(
-            "Delete Garden?",
+            "Delete Plant?",
             "Alert Message",
             [
                 {text: 'Yes', onPress:()=> this._DeleteItem(item)},
