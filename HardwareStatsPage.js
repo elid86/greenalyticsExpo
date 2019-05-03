@@ -5,7 +5,7 @@ import {VictoryAxis, VictoryChart, VictoryLine, VictoryTheme} from "victory-nati
 import {ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 
 const userName = "zlef";
-const MACaddress = "b8:27:eb:0d:73:af";
+var MACaddress = "";
 
 var light = [];
 var temperature = [];
@@ -152,7 +152,8 @@ export default class HardwareStatsPage extends Component<Props> {
 //--load existing Beds
     async componentDidMount() {
         //******* USE THIS TO PASS THE HARDWARE YOU'RE LOOKING AT AND CALL THE FUNCTION THAT CALLS THE API
-        //const {params} = this.props.navigation.state;
+        const {params} = this.props.navigation.state;
+        MACaddress = await params.MACaddress;
 
         await this.onPress_day()
         // console.log(temperature);
