@@ -23,6 +23,7 @@ var gardenNameToPass = ''; //defined when the page appears, must be passed for a
 
 //------- creates rows for the table ----------//
 class ListItem extends React.PureComponent {
+
     _onPress = () => {
         this.props.onPressItem(this.props.index);
     }
@@ -61,10 +62,51 @@ _DeleteItem = (item) => {
 
 
     render() {
+        var tempText = '';
+        var humText = '';
+
         const item = this.props.item;
-        var accountID = item.accountID
-        //var gardenName = item.name
-        var plantgroup=item.name
+
+        if(item.summary.temp != 0){
+            tempText = ""+item.summary.temp+"\u00B0F"
+        }
+        if(item.summary.humidity != 0){
+            humText = ""+item.summary.humidity+"%"
+        }
+
+        const swipeSettings ={ //Code for deleting an item in the Flatlist
+            autoClose: true,
+            onClose: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+
+            },
+            onOpen: (secID, rowID, direction) => {
+                this.setState({activeRowKey: this.props.item.key});
+            },
+            right: [
+                {
+                    onPress: () => {
+                        Alert.alert(
+                            'Alert',
+                            'Are you sure you want to delete this garden bed?',
+                            [
+                                {text: 'No', onPress: ()=>console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'Yes', onPress: () => {
+                                    //_fetchData.splice(this.props.index, 1);
+                                    //I think the api URL goes here in order to get rid of the flatlist value
+
+                                }},
+                            ],
+                            {cancelable:true}
+                        );
+
+                    },
+                    text: 'Delete', type: 'delete'
+                }
+            ],
+            rowID: this.props.index,
+            secID: 1,
+        };
         return (
                 <TouchableHighlight
             onPress={this._onPress}
@@ -75,8 +117,10 @@ _DeleteItem = (item) => {
                         <View style={styles.flowRight}>
                             <Text style={styles.title}>{item.name}</Text>
                         </View>
-
-
+                        <View style={{flow:1, Right: 5, width: 50}}>
+                            <Text style={styles.description}>{tempText}</Text>
+                            <Text style={styles.description}>{humText}</Text>
+                        </View>
                     </View>
                 <View style={styles.separator}/>
             </View>
@@ -85,12 +129,6 @@ _DeleteItem = (item) => {
     }
 }
 
-
-//-------- must be moved into other view to show temp and humidity when available
-/*<View style={{flow:1}}>
-                        <Text style={styles.description}>{item.temp}{'\u00B0'}F</Text>
-                        <Text style={styles.description}>{item.humidity}%</Text>
-                    </View>*/
 
 //------ Plants Group Page --------//
 export default class PlantGroupPage extends Component<Props> {
@@ -117,19 +155,19 @@ async componentDidMount(){
     userName = await params.userName;
     gardenNameToPass = params.garden;
     const item = params.garden;
-    this._fetchData(item);
+    await this._fetchData(item);
+
     this.willFocusSubscription = this.props.navigation.addListener(
         'willFocus',
         () => {
         this._fetchData(item);
-}
-);
+        }
+    );
 }
 
 componentWillUnmount() {
     this.willFocusSubscription.remove();
 }
-
 
 
 _fetchData = (gardenName) => {
@@ -276,7 +314,7 @@ const styles = StyleSheet.create({
         color: '#656565'
     },
     rowContainer: {
-        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
         marginRight: 8,

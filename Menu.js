@@ -66,24 +66,15 @@ export default class HomeScreen extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <ImageBackground source ={require('./assets/Tunnel.jpg')} style={styles.backgroundImage}>
-          <Button 
-            title="My Gardens"
-            color='white'
-            fontWeight= 'bold'
-            onPress={() => this.props.navigation.navigate('GardensPage', {userName: userName})}
-          />
-          <Button
-            title="Hardware"
-            color='white'
-            fontWeight= 'bold'
-            onPress={() => this.props.navigation.navigate('Hardware', {userName: userName})}
-          />
-          <Button
-            title="Logout"
-            color='white'
-            fontWeight= 'bold'
-            onPress={() => this.props.navigation.goBack()}
-          />
+          <TouchableOpacity style={styles.fab} onPress={() => this.props.navigation.navigate('GardensPage', {userName: userName})} >
+          <Text style={styles.fabIcon}>My Gardens</Text>
+            </TouchableOpacity>
+          <TouchableOpacity style={styles.fab} onPress={() => this.props.navigation.navigate('Hardware', {userName: userName})} >
+            <Text style={styles.fabIcon}>Hardware</Text>
+            </TouchableOpacity>
+          <TouchableOpacity style={styles.fab} onPress={() => this.props.navigation.goBack()} >
+            <Text style={styles.fabIcon}>Logout</Text>
+            </TouchableOpacity>
         </ImageBackground>
       </View>
     );
@@ -106,6 +97,18 @@ const styles = StyleSheet.create ({
     textAlign: 'center',
     color: 'white',
     fontWeight: '700'
-  }
+  },
+    fab: {
+        flexDirection: 'row',
+        height: 75,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    fabIcon: {
+        fontSize: 50,
+        color: 'white',
+        fontWeight: 'bold',
+        elevation: 8,
+    }
  
 });
