@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, TextInput, TouchableOpacity, Text, ImageBackground, AsyncStorage} from 'react-native';
+import {
+		AppRegistry, 
+		StyleSheet, 
+		View, 
+		TextInput,
+		TouchableOpacity, 
+		Text, 
+		ImageBackground, 
+		AsyncStorage, 
+		Alert
+} from 'react-native';
+
+var currentAccount=[];
 
 export default class Login extends Component {
 
@@ -13,17 +25,66 @@ export default class Login extends Component {
     this.state = {
         //- setting page settings
         isLoading: true,
+         username: "",
+		password :"",
+        
     };
 }
+
+buttonClockListener =()=> {
+		const {username} =this.state;
+		const {password} =this.state;
+		console.log("---called buttonClockListener");
+		if(username == "" &&  password==""){
+            console.log("---text input == empty");
+            Alert.alert("Oops!", "You need to enter a username and password");
+        } else {
+            console.log("---text input not empty");
+            var lowName = username.toLowerCase().trim();  //trim is used to remove spaces before and after
+		    if(currentAccount.includes(lowName)){
+                console.log("---should show garden name exists alert");
+                Alert.alert("Oops!", "That username already exists. Please choose a different name.");
+            } else {
+                console.log("---garden name doesn't exist");
+                Alert.alert(
+                    //title
+                    'Please Confirm:',
+                    'Are you sure you want to make \''+username.trim()+'\' your username and \''+password.trim()+'\' your password?',
+                    [
+                        {text: 'Yes', onPress: () => this._Login(username.trim()), onPress: () => this._Login(password.trim())},
+
+                        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'}
+                    ],
+                        { cancelable: true }
+                        //clicking out side of alert will cancel
+                    );
+            }
+        }
+	}
 
 	_onPressLogin = (index) => {
 		const {navigate,state} = this.props.navigation;
 		navigate('Menu')
-	}
+	} 
+
+	_Login = () => {
+		 var url = 'http://greenalytics.ga:5000/api/login/'+username+'/'+password;
+		 console.log(url);
+		 fetch(url, {method: 'POST'})
+		 	.then((response)=> {
+		 	console.log('---status code: '+response.statusMessage);
+            this.props.navigation.push();})
+        /*.catch((error) => {
+                Alert.alert(
+                    'Error:',
+                    'There was an error adding '+username+password);
+            console.error(error);
+        });*/
+    }
+
 	render() {
 		const{params} =this.props.navigation.state;
     	if (this.state.isLoading) {
-
 		return (		
 			<View style={styles.container}>
 				<View style={styles.logoContainer}>
@@ -32,11 +93,12 @@ export default class Login extends Component {
 							<Text style={styles.logo}>-GreenAlytics-</Text>
 							<View style={styles.container1}>
 								<TextInput underlineColorAndroid='transparent' style={styles.input}
-									placeholder=" username">
+									onChangeText={username=> this.setState({username})}
+									value={this.state.username} placeholder='Username'>
 								</TextInput>
-
 								<TextInput secureTextEntry={true} underlineColorAndroid='transparent' style={styles.input}
-									placeholder=" password">
+									onChangeText={password=> this.setState({password})}
+									value={this.state.password} placeholder='password'>
 								</TextInput>
 
 								<TouchableOpacity onPress={this._onPressLogin} style={styles.buttonContainer}>
@@ -50,8 +112,6 @@ export default class Login extends Component {
 		); }
 	}
 }
-
-
 const styles = StyleSheet.create ({
 	logoContainer: {
 		alignItems: 'center',
