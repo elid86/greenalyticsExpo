@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e96efed-e69b-4133-9a37-56fcdcc141de" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddHardware.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HardwareStatsPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Garden.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Puppy.png.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Tunnel.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AddBed.js" beforeDir="false" afterPath="$PROJECT_DIR$/AddBed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AddGardenPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/AddGardenPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AllPlantsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/AllPlantsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GardensPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/GardensPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hardware.js" beforeDir="false" afterPath="$PROJECT_DIR$/Hardware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantDetailsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantDetailsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantGroupPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantGroupPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlantsListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/PlantsListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="2e96efed-e69b-4133-9a37-56fcdcc141de" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,8 +71,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6945">
-              <caret line="463" selection-start-line="463" selection-end-line="463" />
+            <state relative-caret-position="6120">
+              <caret line="408" selection-start-line="408" selection-end-line="408" />
+              <folding>
+                <element signature="e#6756#6762#0" expanded="true" />
+                <element signature="e#6792#6798#0" expanded="true" />
+                <element signature="e#6814#6820#0" expanded="true" />
+                <element signature="e#6835#6841#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -259,7 +241,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118434000" />
+    <option name="totallyTimeSpent" value="118445000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="0" />
